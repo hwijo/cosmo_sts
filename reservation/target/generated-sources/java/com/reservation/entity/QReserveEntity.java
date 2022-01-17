@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QReserveEntity extends EntityPathBase<ReserveEntity> {
 
     private static final long serialVersionUID = -1371123581L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QReserveEntity reserveEntity = new QReserveEntity("reserveEntity");
 
@@ -49,7 +52,9 @@ public class QReserveEntity extends EntityPathBase<ReserveEntity> {
 
     public final StringPath phone = createString("phone");
 
-    public final NumberPath<Integer> roomInfo_No = createNumber("roomInfo_No", Integer.class);
+    public final QRoomInfoEntity roomInfo_No;
+
+    public final QRoomInfoEntity roomInfoEntity;
 
     public final StringPath startDate = createString("startDate");
 
@@ -58,15 +63,25 @@ public class QReserveEntity extends EntityPathBase<ReserveEntity> {
     public final DateTimePath<java.util.Date> updatedAt = createDateTime("updatedAt", java.util.Date.class);
 
     public QReserveEntity(String variable) {
-        super(ReserveEntity.class, forVariable(variable));
+        this(ReserveEntity.class, forVariable(variable), INITS);
     }
 
     public QReserveEntity(Path<? extends ReserveEntity> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QReserveEntity(PathMetadata metadata) {
-        super(ReserveEntity.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QReserveEntity(PathMetadata metadata, PathInits inits) {
+        this(ReserveEntity.class, metadata, inits);
+    }
+
+    public QReserveEntity(Class<? extends ReserveEntity> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.roomInfo_No = inits.isInitialized("roomInfo_No") ? new QRoomInfoEntity(forProperty("roomInfo_No")) : null;
+        this.roomInfoEntity = inits.isInitialized("roomInfoEntity") ? new QRoomInfoEntity(forProperty("roomInfoEntity")) : null;
     }
 
 }

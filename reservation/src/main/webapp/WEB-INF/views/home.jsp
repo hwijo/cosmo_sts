@@ -19,19 +19,22 @@
 
 </head>
 
+
 <body>
+
+<!-- top 레이아웃 include -->
+<jsp:include page = "../views/topLayout.jsp" flush = "false"/>
 
 <div class="work-area">
 	<div class="container" style="padding : 50px;"align="center">
-	    <h2>ようこそ！</h2>
-	    <button	onclick = "location.href='/reserve' "class="btn btn-primary" style="float:right">예약하기</button>
+	    <button	onclick = "location.href='/reserve' " class="btn btn-primary" style="float:right">예약하기</button>
 	</div>
 
         <!-- 슬라이드 -->
 		<div id="bxslider" class="designer_area">
 			<c:forEach var="rlt" items="${images}">
 				<ul>
-                    <li style="float: center;"><img src="/resources/${rlt.filename}"/></li>
+                    <li style="float: center;"><img src="/resources/${rlt.filename}" width="100%" height="400px"/></li>
 				</ul>
 			</c:forEach>
 		</div>
@@ -69,6 +72,8 @@
 
 
 
+
+
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -77,14 +82,18 @@
 			speed : 500,
 			pause : 4000,
 			mode : 'fade',
-			autoControls : true, // 시작, 정지버튼 노출
+			//autoControls : true, // 시작, 정지버튼 노출
 			pager : true, // 블릿 버튼
+			//slideWidth: 800, // 가로 크기
 		});
 	});
 </script>
 
 
 </body>
+
+
+
 </html>
 
 
