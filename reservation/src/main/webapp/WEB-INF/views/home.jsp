@@ -27,7 +27,7 @@
 
 <div class="work-area">
 	<div class="container" style="padding : 50px;"align="center">
-	    <button	onclick = "location.href='/reserve' " class="btn btn-primary" style="float:right">예약하기</button>
+	    <h2>ようこそ!</h2>
 	</div>
 
         <!-- 슬라이드 -->

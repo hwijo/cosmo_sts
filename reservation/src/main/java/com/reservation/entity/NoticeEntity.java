@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,4 +50,14 @@ public class NoticeEntity {
 	private Date updatedAt;
 	
 	private int buildCd;
+	
+	@Builder
+	public NoticeEntity(String title, String contents, int buildCd) {
+	        
+	        this.title = title;
+	        this.contents = contents;
+	        this.buildCd = buildCd;
+ 
+	        
+	    }
 }

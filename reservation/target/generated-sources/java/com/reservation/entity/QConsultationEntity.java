@@ -19,8 +19,6 @@ public class QConsultationEntity extends EntityPathBase<ConsultationEntity> {
 
     public static final QConsultationEntity consultationEntity = new QConsultationEntity("consultationEntity");
 
-    public final NumberPath<Integer> buildCd = createNumber("buildCd", Integer.class);
-
     public final StringPath contents = createString("contents");
 
     public final DateTimePath<java.util.Date> createdAt = createDateTime("createdAt", java.util.Date.class);
@@ -34,6 +32,8 @@ public class QConsultationEntity extends EntityPathBase<ConsultationEntity> {
     public final NumberPath<Integer> grno = createNumber("grno", Integer.class);
 
     public final StringPath lockFlg = createString("lockFlg");
+
+    public final StringPath name = createString("name");
 
     public final NumberPath<Integer> no = createNumber("no", Integer.class);
 

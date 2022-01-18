@@ -61,7 +61,7 @@ public class SliderimagesController {
 			System.out.println(originalFileName);
 			fileName = images + "." + ext;
 			try {
-				uploadFile.transferTo(new File("C:\\Users\\1\\Documents\\workspace-sts-3.9.11.RELEASE\\reservation\\src\\main\\webapp\\resources\\" + fileName)); // �̹��� ���� ��� + ����
+				uploadFile.transferTo(new File("C:\\Users\\1\\git\\cosmo_sts\\reservation\\src\\main\\webapp\\resources\\" + fileName)); // �̹��� ���� ��� + ����
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}

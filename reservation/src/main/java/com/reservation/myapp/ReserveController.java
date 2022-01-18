@@ -21,8 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.reservation.dto.ReserveDto;
+import com.reservation.dto.RoomInfoDto;
 import com.reservation.entity.ReserveEntity;
+import com.reservation.entity.RoomInfoEntity;
 import com.reservation.repository.ReserveRepository;
+import com.reservation.service.NoticeService;
+import com.reservation.service.ReserveService;
+import com.reservation.service.RoomInfoService;
 
 
 
@@ -35,9 +41,15 @@ public class ReserveController {
 	@Autowired 
 	ReserveRepository reserveRepository;
 	
+	@Autowired 
+	ReserveService reserveService;
+	
+	@Autowired
+	RoomInfoService roomInfoService;
 	
 	
-	// Ķ����
+	
+	// 예약
 	//@ResponseBody // �ڹ� ��ü�� HTTP ���� ������ ��ü�� ��ȯ
 	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
 	public String calendar(Model model, HttpServletRequest request) {
@@ -67,7 +79,12 @@ public class ReserveController {
 	
 	// ���������� ����
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET) // �ش� ���� Ÿ�� ����
-	public String inReserve() {				
+	public String inReserve(Model model) {				
+		
+		List<RoomInfoEntity> dto = roomInfoService.selectRoom();
+		
+		model.addAttribute("room", dto);
+		
 		
 		return "reserve";		
 		
@@ -78,8 +95,9 @@ public class ReserveController {
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
 	public String reserve(HttpServletRequest request) {
 		
-		ReserveEntity entity = new ReserveEntity();
-				
+		// ReserveEntity entity = new ReserveEntity();
+		ReserveDto dto = new ReserveDto();	
+		
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		String adult = request.getParameter("adult"); // ���� ��
@@ -91,25 +109,25 @@ public class ReserveController {
 		String bankBranchCde = request.getParameter("bankBranchCde"); // ������ȣ
 		String bankNo = request.getParameter("bankNo");	// ���¹�ȣ	
 		
-		entity.setName(name);		
-		entity.setPhone(phone);
-		entity.setAdult(adult);
-		entity.setChild(child);
-		entity.setStartDate(startDate);
-		entity.setEndDate(endDate);
+		dto.setName(name);		
+		dto.setPhone(phone);
+		dto.setAdult(adult);
+		dto.setChild(child);
+		dto.setStartDate(startDate);
+		dto.setEndDate(endDate);
 		//entity.setTotalcost(totalcost);
-		entity.setBankName(bankName);
-		entity.setBankBranchCde(bankBranchCde);
-		entity.setBankNo(bankNo);
+		dto.setBankName(bankName);
+		dto.setBankBranchCde(bankBranchCde);
+		dto.setBankNo(bankNo);
 		
 		// ������
-		entity.setOptions("����");
-		entity.setPaymentFlg("0");
-		entity.setCancelFlg("0");
-		entity.setDeleteFlg("0"); 
-		entity.setBuildCd(2); 
+		dto.setOptions("����");
+		dto.setPaymentFlg("0");
+		dto.setCancelFlg("0");
+		dto.setDeleteFlg("0"); 
+		dto.setBuildCd(2); 
 		
-		reserveRepository.save(entity);
+		reserveService.insertReserve(dto);
 		
 		
 		return "redirect:/";

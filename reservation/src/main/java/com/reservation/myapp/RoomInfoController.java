@@ -97,7 +97,7 @@ public class RoomInfoController {
 			System.out.println(originalFileName);
 			fileName = images + "." + ext;
 			try {
-				uploadFile.transferTo(new File("C:\\Users\\1\\git\\cosmo_project\\src\\main\\webapp\\WEB-INF\\images\\" + originalFileName)); // �̹��� ���� ���
+				uploadFile.transferTo(new File("C:\\Users\\1\\git\\cosmo_sts\\reservation\\src\\main\\webapp\\resources\\roomimages\\" + fileName)); // �̹��� ���� ���
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
