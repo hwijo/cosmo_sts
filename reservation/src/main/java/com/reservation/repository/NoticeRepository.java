@@ -10,4 +10,7 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity, Long> {
 	
 	NoticeEntity findByNo(int no);
 
+	
+	
+
 }

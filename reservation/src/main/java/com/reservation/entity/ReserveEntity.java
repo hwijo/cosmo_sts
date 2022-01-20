@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,7 +45,7 @@ public class ReserveEntity {
 	/*
 	 * @ManyToOne(targetEntity=RoomInfoEntity.class, fetch=FetchType.LAZY) private
 	 * int roomInfo_No; // room number, FK
-	 */	
+	*/	
 	private String name;
 	private String phone;
 	private String adult;
@@ -57,22 +60,26 @@ public class ReserveEntity {
 	private String bankBranchCde;  
 	private String bankNo;  
 	private String deleteFlg;  
-	private Date createdAt;
-	private Date updatedAt;
-	private int buildCd;
-	
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "roomInfo_No") // 외래키 private RoomInfoEntity
-	 * roomInfoEntity;
-	 */
 
 	
+	@CreationTimestamp // insert�� ���� �ð��� �о ����
+	private Date createdAt;
+	
+	@UpdateTimestamp // update�� ���� �ð��� �о ����
+	private Date updatedAt;
+	
+	private int buildCd;
+	
+
+	@ManyToOne(targetEntity=RoomInfoEntity.class, fetch=FetchType.LAZY)
+	@JoinColumn(name = "roomNum") // 외래키 private RoomInfoEntity
+	//private int roomNum;
+	private RoomInfoEntity roomInfoEntity;
+
 	@Builder
 	public ReserveEntity(String name, String phone, String adult, String child, String startDate, String endDate, String options, 
 			String paymentFlg, int totalcost, String cancelFlg, String bankName, String bankBranchCde, String bankNo,
-			String deleteFlg, int buildCd, int roomInfo_No) {
+			String deleteFlg, int buildCd, int roomInfo_No, RoomInfoEntity roomInfoEntity, int roomNum) {
 	        
 	        this.name = name;
 	        this.phone = phone;
@@ -88,8 +95,12 @@ public class ReserveEntity {
 	        this.bankBranchCde = bankBranchCde;
 	        this.bankNo = bankNo;
 	        this.deleteFlg = deleteFlg;
+	        //this.roomNum = roomNum;
+	        //this.roomInfoEntity = roomInfoEntity;
 	        this.buildCd = buildCd;     
 	        
 	    }
+
+
 
 }

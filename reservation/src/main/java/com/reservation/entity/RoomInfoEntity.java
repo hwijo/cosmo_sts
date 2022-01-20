@@ -33,7 +33,7 @@ public class RoomInfoEntity {
 	private String roomNum;
 	
 	private String roomTitle;
-	private int max; // �ִ� �μ�
+	private int maxpeople; // �ִ� �μ�
 	private int adultCost;
 	private int childCost;
 	private String explnation; // ����
@@ -47,6 +47,9 @@ public class RoomInfoEntity {
 	@UpdateTimestamp // update�� ���� �ð��� �о ����
 	private Date updatedAt;
 	private int buildCd;
+	
+
+	
 	
 	
 	

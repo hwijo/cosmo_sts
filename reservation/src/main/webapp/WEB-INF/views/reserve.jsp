@@ -72,7 +72,7 @@
 	          						<li>
 	          						<select name="month" class="form-control mb-2" style="text-align-last: center;">
 	        						<option value="">大人</option>									
-										<option value="${room}">${room.max}</option>								   	
+										<option value="${room}">${room.maxpeople}</option>								   	
 								    </select>
 								    <select name="day" class="form-control mb-2" style="text-align-last: center;">
 									<option value="">子供</option>
@@ -343,12 +343,16 @@
   				</footer>
 			</div> --%>
 
-	<!-- <form id="insertForm" name="reserve" action="/reserve" method="post" >
+	 <form id="insertForm" name="reserve" action="/reserve" method="post" >
 			<table class="table table-bordered">
 				<tr>
 					<td class="text-center"><strong>예약자 이름</strong></td>		
 					<td colspan="3"><input type="text" required="required" id="name" name="name" class="col-sm-9 col-form-label"></td>		
-				</tr>				
+				</tr>			
+				<tr>
+					<td class="text-center"><strong>방</strong></td>		
+					<td colspan="3"><input type="text" required="required" id="roomNum" name="roomNum" class="col-sm-9 col-form-label"></td>		
+				</tr>	
 			    <tr>
 					<td class="text-center"><strong>전화번호</strong></td>		
 					<td colspan="3"><input type="text" required="required" id="phone" name="phone" class="col-sm-9 col-form-label"></td>		
@@ -362,7 +366,7 @@
 					<td colspan="3"><input type="text" required="required" id="child" name="child" class="col-sm-9 col-form-label"></td>		
 				</tr>
 				<tr>
-					<td class="text-center"><strong>시작일</strong></td>		
+					<td class="text-center"><strong>입실일</strong></td>		
 					<td colspan="3"><input type="text" required="required" id="startDate" name="startDate" class="col-sm-9 col-form-label"></td>		
 				</tr>
 				<tr>
@@ -379,7 +383,7 @@
 				<div class="d-grid gap-2 col-6 mx-auto">
 					<button type="submit" class="btn btn-primary float-right">예약</button>
 				</div>		
-		</form> -->
+		</form> 
 			
 <!-- 	<form id="insertForm" role="form" action="/insertRoom" method="post">
 		<br style="clear: both">

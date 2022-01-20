@@ -13,6 +13,8 @@ import com.reservation.entity.RoomInfoEntity;
 public interface RoomInfoRepository extends JpaRepository<RoomInfoEntity, Long> {
 
 	RoomInfoEntity findByNo(int no);
+	
+	//RoomInfoEntity findByRoomNum(int roomNum);
 
 
 }

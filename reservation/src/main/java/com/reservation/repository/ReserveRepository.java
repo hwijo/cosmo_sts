@@ -14,7 +14,6 @@ import com.reservation.entity.ReserveEntity;
 @Repository
 public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
 
-	//NoticeEntity findByNo(int no);
 
 
 }
