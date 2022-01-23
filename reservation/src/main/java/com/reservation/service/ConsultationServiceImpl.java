@@ -35,6 +35,21 @@ public class ConsultationServiceImpl implements ConsultationService {
 	public List<ConsultationEntity> selectConsultation() {
 		return consultationRepository.findAll();
 	}
+
+
+	@Override
+	public ConsultationEntity selectByNo(int no) {
+		return consultationRepository.findByNo(no);
+	}
+
+
+	@Override
+	public ConsultationEntity insertReply(ConsultationDto consultationDto) {
+		ConsultationEntity consultationEntity = new ConsultationEntity();
+		ModelMapper modelMapper = new ModelMapper();
+		consultationEntity = modelMapper.map(consultationDto, ConsultationEntity.class);
+		return consultationRepository.save(consultationEntity);
+	}
 	
 
 	

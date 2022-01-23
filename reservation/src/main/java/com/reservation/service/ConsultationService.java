@@ -10,4 +10,9 @@ public interface ConsultationService {
 	public List<ConsultationEntity> selectConsultation();
 	
 	public ConsultationEntity insertConsultation(ConsultationDto consultationDto);
+	
+	public ConsultationEntity selectByNo(int no);
+	
+	public ConsultationEntity insertReply(ConsultationDto consultationDto);
+	
 }

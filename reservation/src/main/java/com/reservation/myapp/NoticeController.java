@@ -2,6 +2,7 @@ package com.reservation.myapp;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import com.reservation.entity.SliderimagesEntity;
 import com.reservation.repository.RoomInfoRepository;
 import com.reservation.repository.SliderimagesRepository;
 import com.reservation.service.NoticeService;
+
 
 
 
@@ -38,7 +40,7 @@ public class NoticeController {
 	
 	// 메인(슬라이드, 공지사항 리스트)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String noticeList(Model model) {
+	public String noticeList(Locale locale, Model model) {
 		
 		List<SliderimagesEntity> list = sliderimagesRepository.findAll();
 		// sort는 select할때 해주자
@@ -52,7 +54,7 @@ public class NoticeController {
 		model.addAttribute("notice", notice);		
 		
 		
-		return "home";	
+		return "main/home";	
 		
 	}
 	

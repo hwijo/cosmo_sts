@@ -41,6 +41,14 @@ public class NoticeRepositoryTest {
 		
 	}
 
-	
+/*	
+	@Test
+	public void insertN() {
+		NoticeEntity n = new NoticeEntity();
+		n.setTitle("이름");
+		n.setContents("내용");
+		noticeRepository.insertN(n);
+	}
+*/	
 
 }

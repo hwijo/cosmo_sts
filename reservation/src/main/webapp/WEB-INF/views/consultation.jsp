@@ -34,6 +34,7 @@
 				<fmt:formatDate value="${list.updatedAt}" pattern="yy-MM-dd"
 					var="rewritedAt"></fmt:formatDate>
 				<td class="text-center">${rewritedAt}</td>
+				<td class="text-right"><button onclick = "location.href='/consulReply?no=${list.no}' "class="btn btn-primary" style="float:right">답글 등록</button></td>
 			</tr>		
     	</c:forEach>
 	    </table>

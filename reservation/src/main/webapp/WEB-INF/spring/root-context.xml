@@ -21,9 +21,9 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@192.168.5.22:1521:xe"/>
-        <property name="username" value="testuser"/>
-        <property name="password" value="q1w2e3r4"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+        <property name="username" value="hwi"/>
+        <property name="password" value="1541"/>
     </bean>
 	
 <!-- 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -41,7 +41,7 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-	
+
 	
 	<!-- JPA 예외를 스프링 예외로 변환 -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>

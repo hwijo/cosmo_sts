@@ -39,7 +39,7 @@
 <body>
     
 <!-- top 레이아웃 include -->
-<jsp:include page = "../views/topLayout.jsp" flush = "false"/>
+
 
 <div class="work-area">	
 

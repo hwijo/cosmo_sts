@@ -13,24 +13,24 @@
 
 <style>
 
-#body-wrapper {
+/* #body-wrapper {
 
 footer {
 	position:fixed; 
 	bottom:0; 
 	width:100%;
 }
-
+ */
 </style>
 
 <!-- Footer -->
 <body>
-<footer class="py-5 bg-dark">
+<div class="Footer">
 	<div class="container">
 		<p class="m-0 text-center text-white">Copyright &copy; hwi 2022</p>
 	</div>
 	<!-- /.container -->
-</footer>
+</div>
 </body>
 
 <!-- Bootstrap core JavaScript -->
