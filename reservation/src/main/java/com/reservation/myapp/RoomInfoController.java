@@ -105,7 +105,7 @@ public class RoomInfoController {
 				
 		entity.setRoomNum(roomNum);		
 		entity.setRoomTitle(roomTitle);
-		entity.setMaxpeople(max);
+		entity.setMax(max);
 		entity.setAdultCost(adultCost);
 		entity.setChildCost(childCost);
 		entity.setExplnation(explnation);

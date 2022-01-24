@@ -48,7 +48,7 @@ public class ConsultationEntity {
 	@UpdateTimestamp // update시 현재 시간을 읽어서 저장
 	private Date updatedAt;
 	
-	private int buildCd;
+	//private int buildCd;
 	
 	
 	

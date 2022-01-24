@@ -35,7 +35,7 @@ public class QRoomInfoEntity extends EntityPathBase<RoomInfoEntity> {
 
     public final StringPath images = createString("images");
 
-    public final NumberPath<Integer> maxpeople = createNumber("maxpeople", Integer.class);
+    public final NumberPath<Integer> max = createNumber("max", Integer.class);
 
     public final NumberPath<Integer> no = createNumber("no", Integer.class);
 

@@ -16,14 +16,14 @@
 .Header, .Footer{
 	height: 5em;
 }
-/* 
+
 .SideBar{
 	width: 10%;
 	height: 600px;
 	background-color: #FFBB00;
 	float: left;
 }
- */
+
 .page_content{
 	width: 100%;
 	height: 1000px;
@@ -31,10 +31,8 @@
 	float: left;
 }
 
-.Header{
-	background-color: #ABF200;
+.Header {
+	background-color: #c0c0c0;
+	
 }
 
-.Footer{
-	background-color: #FF00DD;
-}

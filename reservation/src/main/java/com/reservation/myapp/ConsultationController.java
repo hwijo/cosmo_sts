@@ -82,7 +82,7 @@ public class ConsultationController {
 		
 		dto.setLockFlg("0");
 		dto.setDeleteFlg("0");
-		dto.setBuildCd(2);	
+		//dto.setBuildCd(2);	
 		
 		consultationService.insertReply(dto);
 		

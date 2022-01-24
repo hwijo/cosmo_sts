@@ -26,9 +26,6 @@
 
 <div class="work-area">
 
-	<div class="container" style="padding : 50px;"align="center">
-	    <h2>ようこそ!</h2>
-	</div>
 
         <!-- 슬라이드 -->
 		<div id="bxslider" class="designer_area">

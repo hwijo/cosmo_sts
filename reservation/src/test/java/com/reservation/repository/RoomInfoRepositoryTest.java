@@ -11,9 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.reservation.entity.ConsultationEntity;
-import com.reservation.repository.ConsultationRepository;
-
+import lombok.extern.slf4j.Slf4j;
 
 
 //단위테스트를 스프링과 연동
@@ -21,28 +19,14 @@ import com.reservation.repository.ConsultationRepository;
 //환경설정 파일 명시
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 @WebAppConfiguration
-public class ConsultationRepositoryTest {
+public class RoomInfoRepositoryTest {
 	
 	@Autowired
-	private ConsultationRepository consultationRepository;	
+	private RoomInfoRepository roomInfoRepository;	
 
 	@Test
-	public void insertConsultation() { // 답글 하나도 없는 댓글 생성
-		IntStream.rangeClosed(1, 10).forEach(i -> {
-			ConsultationEntity consultationEntity = ConsultationEntity.builder()
-					.name("김" + i)
-					.grno(i)
-					.grgrod(0)
-                    .depth(0)					
-					.title("title" + i)
-					.contents("hello")
-					.passwd("1234")
-					.build();	
-			
-			consultationRepository.save(consultationEntity);
-					   
-		});
-		
+	public void selectRoomInfo() { 
+		System.out.println(roomInfoRepository.findAll());
 		
 	}
 /*     

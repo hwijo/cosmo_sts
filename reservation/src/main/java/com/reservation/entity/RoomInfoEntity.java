@@ -33,7 +33,7 @@ public class RoomInfoEntity {
 	private String roomNum;
 	
 	private String roomTitle;
-	private int maxpeople; // �ִ� �μ�
+	private int max; // �ִ� �μ�
 	private int adultCost;
 	private int childCost;
 	private String explnation; // ����

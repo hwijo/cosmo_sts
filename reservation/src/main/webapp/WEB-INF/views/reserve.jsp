@@ -16,10 +16,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-<script src="http://rosinante6000.co.kr/thema/Basic/assets/bs3/js/bootstrap.min.js"></script>
-<script src="http://rosinante6000.co.kr/thema/Basic/assets/js/sly.min.js"></script>
-<script src="http://rosinante6000.co.kr/thema/Basic/assets/js/custom.js"></script>
-<script src="http://rosinante6000.co.kr/thema/Basic/widget/basic-sidebar/sidebar.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
+
+
 
 </head>
 
@@ -38,7 +45,7 @@
 
 <body>
     
-<!-- top 레이아웃 include -->
+
 
 
 <div class="work-area">	
@@ -61,8 +68,7 @@
 	        						</li>
 	        						<c:forEach var="room" items="${room}">
 	        						<li>
-	          							<button><img src="/resources/roomimages/${room.images}" width="200px" height="200px"/></button>
-	          						</li>
+	          							<img src="/resources/roomimages/${room.images}" width="200px" height="200px" name="images"/>
 	          						<div>
 	          						    <p>${room.roomTitle}</p>
 	          						</div>
@@ -70,20 +76,23 @@
 	          						    <p>${room.explnation}</p>
 	          						</li>  
 	          						<li>
-	          						<select name="month" class="form-control mb-2" style="text-align-last: center;">
-	        						<option value="">大人</option>									
-										<option value="${room}">${room.maxpeople}</option>								   	
+	          						<select name="adult" class="form-control mb-2" style="text-align-last: center;">
+	        						<option value="">大人</option>	
+	        							<c:forEach var="i" begin="1" end="${room.max}">	
+	        							    <option><c:out value="${i}"/></option>		
+										</c:forEach>				   	
 								    </select>
-								    <select name="day" class="form-control mb-2" style="text-align-last: center;">
+								    <select name="child" class="form-control mb-2" style="text-align-last: center;">
 									<option value="">子供</option>
-									
-										<c:if test="${Integer.toString(day).length() lt 2}">
+									    <c:forEach var="i" begin="1" end="${room.max}">	
+	        							    <option><c:out value="${i}"/></option>		
+										</c:forEach>	
+										<%-- <c:if test="${Integer.toString(day).length() lt 2}">
 											<option value="0${day}">${day}일</option>
 										</c:if>
 										<c:if test="${Integer.toString(day).length() gt 1}">
 											<option value="${day}">${day}일</option>
-										</c:if>
-									
+										</c:if> --%>									
 								    </select>
                                     </li>
 	          						</c:forEach>
@@ -97,114 +106,84 @@
 	      					</div>
 	    				</div>
 	    				
-	    				<div class="card mb-4 shadow-sm">
-	      					
+	    				<div class="card mb-4 shadow-sm">   					
 
 	      					<div class="card-header">
 	        					<h4 class="my-0 font-weight-normal">入退室日</h4>
 	      					</div>
-	      					<div class="card-body">
-	        					<select name="month" class="form-control mb-2" style="text-align-last: center;">
-	        						<option value="">-- 월 --</option>
-									<c:forEach var="month" items="${map.months}">
-										<c:if test="${Integer.toString(month).length() lt 2}">
-											<option value="0${month}">${month}월</option>
-										</c:if>
-										<c:if test="${Integer.toString(month).length() gt 1}">
-											<option value="${month}">${month}월</option>
-										</c:if>
-									</c:forEach>
-								</select>
-								<select name="day" class="form-control mb-2" style="text-align-last: center;">
-									<option value="">-- 일 --</option>
-									<c:forEach var="day" items="${map.days}">
-										<c:if test="${Integer.toString(day).length() lt 2}">
-											<option value="0${day}">${day}일</option>
-										</c:if>
-										<c:if test="${Integer.toString(day).length() gt 1}">
-											<option value="${day}">${day}일</option>
-										</c:if>
-									</c:forEach>
-								</select>
 
-	        					<button type="submit" class="btn btn-lg btn-block btn-outline-primary">予約</button>
-	      					</div>
+
+			<div class='col-md-3 col-xs-4'>
+				<div class="form-group">
+					<div class="input-group date" id="datetimepicker1"
+						data-target-input="nearest">
+						<input type="text" class="form-control datetimepicker-input" name="startDay"
+							data-target="#datetimepicker1" value="01/11/2022">
+						<div class="input-group-append" data-target="#datetimepicker1"
+							data-toggle="datetimepicker">
+							<div class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='col-md-3 col-xs-4'>
+				<div class="form-group">
+					<div class="input-group date" id="datetimepicker2"
+						data-target-input="nearest">
+						<input type="text" class="form-control datetimepicker-input" name="endDay"
+							data-target="#datetimepicker2" value="01/15/2022">
+						<div class="input-group-append" data-target="#datetimepicker2"
+							data-toggle="datetimepicker">
+							<div class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			...
+			    <div class="d-grid gap-2 col-6 mx-auto">
+					<button type="submit" class="btn btn-primary float-right">予約</button>
+				</div>		
+	      					
+
 	    				</div>		
 					</div>
 				</form>
 				
-				<div class="modal fade" id="roomReserveListModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-				</button>
-			</div>
-			<div class="modal-body">
-			<input type="hidden" id="roomReserveNo" value="">
-			<input type="hidden" id="ddayYear" value="0">
-			<input type="hidden" id="ddayMonth" value="0">
-			                  <div class="panel-body">
-                        <div class="calendar fc fc-ltr">
-                    
-                            <table class="fc-header" style="width:100%">
-                                <tbody>
-                                    <tr>
-                                        <td class="fc-header-left">
-                                            <div class="btn-group">
-                                                <button type="button" class="fc-button-prev fc-corner-left btn btn-default btn-sm calendarMoveBtn" ddayOption="prev"> <i class="fa fa-chevron-left"></i>
 
-                                                </button>
-                                                <button type="button" class="btn btn-default btn-sm calendarMoveBtn" ddayOption="next"> <i class="fa fa-chevron-right"></i>
-
-                                                </button>
-                                            </div> 
-                                        </td>
-                                        <td class="fc-header-center"> <span class="fc-header-title">          <h2 id="calendarTitle">January 2014</h2>          </span>
-
-                                        </td>
-                                        <td class="fc-header-right">
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="fc-content" style="position: relative; min-height: 1px;">
-                                <div class="fc-view fc-view-month fc-grid" style="position: relative; min-height: 1px;" unselectable="on">
-                                    <table class="fc-border-separate" cellspacing="0">
-                                        <thead>
-                                            <tr class="fc-first fc-last">
-                                                <th class="fc-day-header fc-sun fc-widget-header fc-first" style="width: 158px;">Sun</th>
-                                                <th class="fc-day-header fc-mon fc-widget-header" style="width: 158px;">Mon</th>
-                                                <th class="fc-day-header fc-tue fc-widget-header" style="width: 158px;">Tue</th>
-                                                <th class="fc-day-header fc-wed fc-widget-header" style="width: 158px;">Wed</th>
-                                                <th class="fc-day-header fc-thu fc-widget-header" style="width: 158px;">Thu</th>
-                                                <th class="fc-day-header fc-fri fc-widget-header" style="width: 158px;">Fri</th>
-                                                <th class="fc-day-header fc-sat fc-widget-header fc-last" style="width: 158px;">Sat</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="calendarListTbody">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
+			<script type="text/javascript">
+				$(function() {
+					$('#datetimepicker1').datetimepicker({
+						format : 'L'
+					});
+					$('#datetimepicker2').datetimepicker({
+						format : 'L',
+						useCurrent : false
+					});
+					$("#datetimepicker1").on( // 시작날짜
+							"change.datetimepicker",
+							function(e) {
+								$('#datetimepicker2').datetimepicker('minDate',
+										e.date);
+							});
+					$("#datetimepicker2").on( // 끝날짜
+							"change.datetimepicker",
+							function(e) {
+								$('#datetimepicker1').datetimepicker('maxDate',
+										e.date);
+							});
+				});
 				
-				
-<%-- 
+			</script>
+
+
+
+
+
+			<%-- 
 
   				<footer class="pt-4 border-top">
   					<div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">

@@ -12,7 +12,7 @@
 </head>
 
 <!-- 네비바를 fiexd-top으로 설정했을 때 컨텐츠와 겹치는 문제 방지 -->
-<body class="Header">
+<body class="hhhheader">
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
