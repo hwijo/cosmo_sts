@@ -13,8 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Optional;
 import com.reservation.entity.NoticeEntity;
 import com.reservation.entity.ReserveEntity;
+import com.reservation.entity.RoomInfoEntity;
 import com.reservation.entity.RoomInfoEntity;
 
 
@@ -27,18 +29,16 @@ public class ReserveRepositoryTest {
 	
 	@Autowired
 	private ReserveRepository reserveRepository;
-	
-	@Autowired
-	private RoomInfoRepository roomInfoRepository;
-	
+
 
 	@Test
 	//@Transactional
 	public void insertReserve() {
 		
-		//RoomInfoEntity r = roomInfoRepository.findByRoomNum(2);
 		
 		//IntStream.rangeClosed(1, 10).forEach(i -> {
+		RoomInfoEntity roomInfo = RoomInfoEntity.builder().no(60).build();
+		
 			ReserveEntity reserveEntity = ReserveEntity.builder()
 					.name("user1")
 					.phone("01012345678")
@@ -54,7 +54,7 @@ public class ReserveRepositoryTest {
 					.bankNo("01")
 					.deleteFlg("0")
 					.buildCd(2)		
-					.roomNum(2)
+					.roomInfoEntity(roomInfo)
 					.build();	
 			
 			reserveRepository.save(reserveEntity);
@@ -63,7 +63,17 @@ public class ReserveRepositoryTest {
 		
 		
 	}
+	
+/*	
+	@Test
+	public void testRead() { // 답글 하나도 없는 댓글 생성
+		Optional<ReserveEntity> result = ReserveRepository.findById(100L);
+		
 
+		
+		
+	}
+*/
 	
 
 }

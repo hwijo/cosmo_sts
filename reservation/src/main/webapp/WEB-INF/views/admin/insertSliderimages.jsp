@@ -25,10 +25,10 @@
 <body>
 <div class="work-area">	
 　　　 <div align="center">
-        <h2>슬라이드 이미지 등록</h2>
+        <h2>スライドイメージ登録</h2>
     </div>
 
-	<form id="insertForm" name="insert" action="/insertSliderimages" method="post" enctype="multipart/form-data">
+	<form id="insertForm" name="insert" action="/admin/insertSliderimages" method="post" enctype="multipart/form-data">
 			<table class="table table-bordered">
 				
 				<tr>
@@ -40,7 +40,7 @@
 				
 			</table>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-primary float-right">등록</button>
+					<button type="submit" class="btn btn-primary float-right">登録</button>
 				</div>		
 		</form>
 			

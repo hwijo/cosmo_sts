@@ -16,7 +16,7 @@
 <body>
 
 <div class="work-area">
-		<div class="row">
+		<div class="row" style="padding : 70px;">
 			<div class="col-lg-12">
 				<div class="panel-body"
 					style="display: flex; flex-direction: column;">

@@ -3,6 +3,8 @@ package com.reservation.dto;
 
 import java.util.Date;
 
+import com.reservation.entity.RoomInfoEntity;
+
 import lombok.Data;
 
 
@@ -29,6 +31,11 @@ public class ReserveDto {
 	private Date createdAt;
 	private Date updatedAt;
 	private int buildCd;
+	
+	private int roomNo;
+	private int roomNum;
+	
+	private RoomInfoEntity roomInfoEntity;
 	
 	
 

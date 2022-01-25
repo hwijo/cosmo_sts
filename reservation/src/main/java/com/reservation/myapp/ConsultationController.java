@@ -21,14 +21,12 @@ import com.reservation.service.ConsultationService;
 
 
 @Controller
-public class ConsultationController {
-	
+public class ConsultationController {	
 	
 	
 	@Autowired
 	ConsultationService consultationService;
 	
-
 	
 	// 상담 페이지
 	@RequestMapping(value = "/consultation", method = RequestMethod.GET)
@@ -39,12 +37,25 @@ public class ConsultationController {
 		model.addAttribute("list", list);
 		
 		
-		return "consultation";	
+		return "main/consultation";	
+		
+	}
+	
+	// 상담 페이지
+	@RequestMapping(value = "/admin/consultation", method = RequestMethod.GET)
+	public String consultationPageAdmin(Model model) {
+		
+		List<ConsultationEntity> list = consultationService.selectConsultation();
+		
+		model.addAttribute("list", list);
+		
+		
+		return "admin/consultation";	
 		
 	}
 	
 	// 답글 쓰기 페이지 들어가기
-	@RequestMapping(value = "/consulReply", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/consulReply", method = RequestMethod.GET)
 	public String inConsulReply(Model model, HttpServletRequest request, int no) {
 		//System.out.println("시발" + no);
 		ConsultationEntity e = consultationService.selectByNo(no);
@@ -53,13 +64,13 @@ public class ConsultationController {
 		
 		model.addAttribute("e", e);
 		
-		return "consulReply";	
+		return "admin/consulReply";	
 		
 	}
 	
 	
 	// 답글 쓰기 
-	@RequestMapping(value = "/consulReply", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/consulReply", method = RequestMethod.POST)
 	public String consulReply(Model model, HttpServletRequest request) {
 		
 		ConsultationDto dto = new ConsultationDto();
@@ -87,7 +98,7 @@ public class ConsultationController {
 		consultationService.insertReply(dto);
 		
 				
-		return "redirect:/consultation";	
+		return "redirect:/admin/consultation";	
 		
 	}
 	

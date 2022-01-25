@@ -16,14 +16,14 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="/">ようこそ!</a>
+			<a class="navbar-brand" href="/admin/home">Admin</a>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="/">HOME
+					<li class="nav-item active"><a class="nav-link" href="/admin/home">HOME
 					</a></li>
-					<li class="nav-item active"><a class="nav-link"	href="/reserve">予約
+					<li class="nav-item active"><a class="nav-link"	href="/admin/reserve">予約
 					</a></li>
-					<li class="nav-item active"><a class="nav-link"	href="/consultation">相談
+					<li class="nav-item active"><a class="nav-link"	href="/admin/consultation">相談
 					</a></li>
 				</ul>
 			</div>

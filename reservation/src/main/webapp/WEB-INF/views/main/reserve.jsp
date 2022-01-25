@@ -27,35 +27,33 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 
+<!-- jquery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- fullcalendar CDN -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+<!-- fullcalendar 언어 CDN -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+
+
 
 </head>
 
 <!-- 예약 -->
-
-<style>
-
-
-
-
-
-
-</style>
 
 
 
 <body>
     
 
-
-
 <div class="work-area">	
 
-	<div class="container" style="padding : 50px;"align="center">
+	<div class="container" style="padding : 80px;" align="center">
 	    <h2>予約</h2>
 	</div>
 
   			<div class="container">
-				<form method="post" action="/reserve">
+				<form method="post" action="/reserve" id="insertForm" name="reserve">
 	  				<div class="card-deck mb-3 text-center">
 	    				<div class="card mb-4 shadow-sm">
 	      					<div class="card-header">
@@ -68,14 +66,15 @@
 	        						</li>
 	        						<c:forEach var="room" items="${room}">
 	        						<li>
-	          							<img src="/resources/roomimages/${room.images}" width="200px" height="200px" name="images"/>
+	          							<img src="/resources/roomimages/${room.images}" width="200px" height="200px"/>
 	          						<div>
 	          						    <p>${room.roomTitle}</p>
 	          						</div>
 	          						<li style="float:left;">
 	          						    <p>${room.explnation}</p>
-	          						</li>  
+	          						</li>	          						
 	          						<li>
+	          						<input type="hidden" value="${room.no}" name="no">
 	          						<select name="adult" class="form-control mb-2" style="text-align-last: center;">
 	        						<option value="">大人</option>	
 	        							<c:forEach var="i" begin="1" end="${room.max}">	
@@ -86,13 +85,7 @@
 									<option value="">子供</option>
 									    <c:forEach var="i" begin="1" end="${room.max}">	
 	        							    <option><c:out value="${i}"/></option>		
-										</c:forEach>	
-										<%-- <c:if test="${Integer.toString(day).length() lt 2}">
-											<option value="0${day}">${day}일</option>
-										</c:if>
-										<c:if test="${Integer.toString(day).length() gt 1}">
-											<option value="${day}">${day}일</option>
-										</c:if> --%>									
+										</c:forEach>								
 								    </select>
                                     </li>
 	          						</c:forEach>
@@ -113,12 +106,12 @@
 	      					</div>
 
 
-			<div class='col-md-3 col-xs-4'>
+			<div class='col-md-3 col-xs-4' style="padding : 20px;" align="center">
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker1"
 						data-target-input="nearest">
-						<input type="text" class="form-control datetimepicker-input" name="startDay"
-							data-target="#datetimepicker1" value="01/11/2022">
+						<input type="text" style="width:300px" name="startDate"
+							data-target="#datetimepicker1" value="">
 						<div class="input-group-append" data-target="#datetimepicker1"
 							data-toggle="datetimepicker">
 							<div class="input-group-text">
@@ -128,12 +121,12 @@
 					</div>
 				</div>
 			</div>
-			<div class='col-md-3 col-xs-4'>
+			<div class='col-md-3 col-xs-4' style="padding : 20px;" align="center">
 				<div class="form-group">
 					<div class="input-group date" id="datetimepicker2"
 						data-target-input="nearest">
-						<input type="text" class="form-control datetimepicker-input" name="endDay"
-							data-target="#datetimepicker2" value="01/15/2022">
+						<input type="text" style="width:300px" name="endDate"
+							data-target="#datetimepicker2" value="">
 						<div class="input-group-append" data-target="#datetimepicker2"
 							data-toggle="datetimepicker">
 							<div class="input-group-text">
@@ -153,175 +146,63 @@
 					</div>
 				</form>
 				
+			<div id='calendar-container'>
+                <div id='calendar'></div>
+            </div>
+
+
+
 
 			<script type="text/javascript">
 				$(function() {
 					$('#datetimepicker1').datetimepicker({
-						format : 'L'
+						timepicker : false,
+						format : 'YYYY-MM-DD',
+						minDate : new Date(0)
 					});
+
+					//$('#datetimepicker1').datetimepicker('minDate',	0);					
+
 					$('#datetimepicker2').datetimepicker({
-						format : 'L',
+						format : 'YYYY-MM-DD',
 						useCurrent : false
 					});
-					$("#datetimepicker1").on( // 시작날짜
+					$("#datetimepicker1").on(
+							// 시작날짜, 날짜 선택했을 때 인풋에 날짜 출력
 							"change.datetimepicker",
 							function(e) {
 								$('#datetimepicker2').datetimepicker('minDate',
 										e.date);
+								console.log(e);
+
 							});
-					$("#datetimepicker2").on( // 끝날짜
+					$("#datetimepicker2").on(
+							// 끝날짜
 							"change.datetimepicker",
 							function(e) {
 								$('#datetimepicker1').datetimepicker('maxDate',
 										e.date);
+								console.log(e);
 							});
+
 				});
-				
 			</script>
 
+		</div>
 
 
 
+</div>
 
-			<%-- 
 
-  				<footer class="pt-4 border-top">
-  					<div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
-						<p class="lead">좌석 검색</p>
-					</div>
-  				
-    				<div class="row text-center d-flex justify-content-center">
-      					<form class="form-inline" name="search_form" method="post" action="${path}/timetable/list.do">
-							<select name="month" class="form-control mr-2 mb-2" style="text-align-last: center;">
-								<option value="">-- 월 --</option>
-								<c:forEach var="month" items="${map.months}">
-									<c:if test="${Integer.toString(month).length() lt 2}">
-										<option value="0${month}">${month}월</option>
-									</c:if>
-									<c:if test="${Integer.toString(month).length() gt 1}">
-										<option value="${month}">${month}월</option>
-									</c:if>
-								</c:forEach>
-							</select>
-							<select name="day" class="form-control mr-2 mb-2" style="text-align-last: center;">
-								<option value="">-- 일 --</option>
-								<c:forEach var="day" items="${map.days}">
-									<c:if test="${Integer.toString(day).length() lt 2}">
-										<option value="0${day}">${day}일</option>
-									</c:if>
-									<c:if test="${Integer.toString(day).length() gt 1}">
-										<option value="${day}">${day}일</option>
-									</c:if>
-								</c:forEach>
-							</select>
-							<select name="time" class="form-control mr-2 mb-2" style="text-align-last: center;">
-								<option value="">-- 출발 시간 --</option>
-								<c:forEach var="time" items="${map.times}">
-									<c:if test="${Integer.toString(time).length() lt 2}">
-										<option value="0${time}">${time}시</option>
-									</c:if>
-									<c:if test="${Integer.toString(time).length() gt 1}">
-										<option value="${time}">${time}시</option>
-									</c:if>
-								</c:forEach>
-							</select>
-							<button type="submit" class="btn btn-outline-secondary mb-2">검색</button>
-						</form>
-						
-						<c:if test="${map.count eq 0}">
-							<span style="color: blue;">이 시간대의 버스는 없습니다</span>
-						</c:if>
-					</div>
-						
-					<div class="row text-center d-flex justify-content-center">
-						<table class="table table-hover" border="1" style="width: 600px">
-							<tr>
-								<th>#</th>
-								<th>출발 시간</th>
-								<th>도착 시간</th>
-								<th>버스 번호</th>
-							</tr>
-							<c:forEach var="row" items="${map.timetable}">
-							
-								<tr>
-									<td>${row.getSeqNo()}</td>
-									<td>
-										<a href="${path}/timetable/detail.do?id=${row.getSeqNo()}">
-											${row.getStartTime().substring(0, 4)}년
-											${row.getStartTime().substring(4, 6)}월
-											${row.getStartTime().substring(6, 8)}일
-											${row.getStartTime().substring(8, 10)}시
-											${row.getStartTime().substring(10, 12)}분
-										</a>
-									</td>
-									<td>
-										<a href="${path}/timetable/detail.do?id=${row.getSeqNo()}">
-											${row.getEndTime().substring(0, 4)}년
-											${row.getEndTime().substring(4, 6)}월
-											${row.getEndTime().substring(6, 8)}일
-											${row.getEndTime().substring(8, 10)}시
-											${row.getEndTime().substring(10, 12)}분
-										</a>
-									</td>
-									<td>${row.getBusNo()}</td>
-								</tr>
-							
-							</c:forEach>
-							
-						</table>
-					</div>
-						
-					<div class="row d-flex justify-content-center">
-						<nav aria-label="Page navigation example">
-						  <ul class="pagination">
-						  	<c:if test="${map.pagination.getCurPage() > 1}">
-						  		<li class="page-item">
-						  			<a class="page-link" href="javascript:list('1')">[처음]</a>
-						  		</li>
-							</c:if>
-							
-							<c:if test="${map.pagination.getCurBlock() > 1}">
-								<li class="page-item">
-									<a class="page-link" aria-label="Previous" href="javascript:list('${map.pagination.getPrevPage()}')">
-										<span aria-hidden="true">&laquo;</span>
-									</a>
-								</li>
-							</c:if>
-							
-							<c:forEach var="num" begin="${map.pagination.getBlockBegin()}" end="${map.pagination.getBlockEnd()}">						
-								<c:choose>
-									<c:when test="${num == map.pagination.getCurPage()}">
-										<li class="page-item disabled">
-									    	<span class="page-link">${num}</span>
-									    </li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item">
-											<a class="page-link" href="javascript:list('${num}')">${num}</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						    
-						    <c:if test="${map.pagination.getCurBlock() <= map.pagination.getTotBlock()}">
-						    	<li class="page-item">
-									<a class="page-link" href="javascript:list('${map.pagination.getNextPage()}')">
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>
-							</c:if>
-							<c:if test="${map.pagination.getCurPage() < map.pagination.getTotPage()}">
-								<li class="page-item">
-									<a class="page-link" href="javascript:list('${map.pagination.getTotPage()}')">[끝]</a>
-								</li>
-							</c:if>
-						    
-						  </ul>
-						</nav>
-					</div>
-  				</footer>
-			</div> --%>
+</body>
 
+
+</html>
+
+
+
+<!-- input text 
 	 <form id="insertForm" name="reserve" action="/reserve" method="post" >
 			<table class="table table-bordered">
 				<tr>
@@ -363,7 +244,7 @@
 					<button type="submit" class="btn btn-primary float-right">예약</button>
 				</div>		
 		</form> 
-			
+			 -->
 <!-- 	<form id="insertForm" role="form" action="/insertRoom" method="post">
 		<br style="clear: both">
 		<h3 style="margin-bottom: 25px;">Article Form</h3>
@@ -379,35 +260,3 @@
 			class="btn btn-primary pull-right">Submit Form</button>
 	</form> -->
 			
-			
-
-
-</div>
-
-
-</div>
-    
-<!--     <div class="container">
-    <form method="post" action="/reserve">
-        <table>
-			<ul class="jss26 itemList">
-				<li><a class="jss28">이미지</a>
-					<div class="jss30 itemInfo">방정보</div>
-					<div class="jss32 jss43">인원수</div>
-					<div class="jss34">가격</div>
-				</li>
-			</ul>
-		</table>     
-    </form> -->
-    
-    
-
-
-</body>
-
-<script>
-
-
-</script>
-
-</html>

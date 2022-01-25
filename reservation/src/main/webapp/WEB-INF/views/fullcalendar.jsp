@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8' />
-<script src='http://code.jquery.com/jquery-latest.js'></script> 
-<link href='/fullcalendar/main.css' rel='stylesheet' />
-<script src='/fullcalendar/main.js'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<meta charset='UTF-8' />
+<!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<!-- jquery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- fullcalendar CDN -->
+<link
+	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css'
+	rel='stylesheet' />
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+<!-- fullcalendar 언어 CDN -->
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+<style>
+/* body 스타일 */
+html, body {
+	overflow: hidden;
+	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+	font-size: 14px;
+}
+/* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
+.fc-header-toolbar {
+	padding-top: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+</style>
 </head>
 <body style="padding: 30px;">
 	<!-- calendar 태그 -->
@@ -13,125 +38,65 @@
 		<div id='calendar'></div>
 	</div>
 <script>
-/* $(document).ready(function(){
-	$.ajax({
-		url: '/calendar',
-		type: 'GET',
-		dataType: 'json',
-		success: function(map){
-			var list = map;
-			console.log(list);	
-			alert(list);
-			
- 			var calendarEl = document.getElementById('calendar');
-			
-			var events = list.map(function(item) {
-				return {
-					title : item.roonInfo_No,
-					start : item.startDate,
-					end : item.endDate,
-				}
-			});
-			
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				events : '/calendar'
-				eventTimeFormat: { // like '14:30:00'
-				    hour: '2-digit',
-				    minute: '2-digit',
-				    hour12: false
-				  }
-			});
-			calendar.render();
-		},
-	})
-});  */
+document.addEventListener('DOMContentLoaded', function() { 
+	var calendarEl = document.getElementById('calendar'); 
 
-/* $(document).ready(function() {
-    var calendarEl = document.getElementById('calendar');   
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        height: 600,
-        plugins: [ 'dayGrid' ],
-        defaultView: 'dayGridMonth',
-        defaultDate: new Date(),
-        header: {
-            left: '',
-            center: 'title',
-            right: 'prev,next today'
-          },
-        eventLimit: true,
-        eventLimitText: "more",
-        eventLimitClick: "popover",
-        editable: false,
-        droppable: false,
-        dayPopoverFormat: { year: 'numeric', month: 'long', day: 'numeric' },
-        events:function(info, successCallback, failureCallback){
-            $.ajax({
-                   url: 'calendar',
-                   type: 'GET',
-                   dataType: 'json',
-                   success: 
-                       function(result) {
- 
-                           var events = [];
-                          
-                           if(result!=null){
-                               
-                                   $.each(result, function(index, element) {
-                                   var endDate=element.endDate;
-                                    if(endDate==null){
-                                        endDate=element.startDate;
-                                    }
-                                    
-                                    var startDate=moment(element.startDate).format('YYYY-MM-DD');
-                                    var endDate=moment(endDate).format('YYYY-MM-DD');
-                                    //var roomInfo_No = element.roomInfo_No;
-                                    
-                                    // realmname (분야) 분야별로 color 설정
-                                    events.push({
-                                               //title: element.,
-                                               start: startDate,
-                                               end: endDate,
-                                                  //url: "${pageContext.request.contextPath }/detail.do?seq="+element.seq,
-                                                  //color:"#6937a1"                                                   
-                                        }); //.push()                              
-                                                                                                            
+// new FullCalendar.Calendar(대상 DOM객체, {속성:속성값, 속성2:속성값2..}) 
+var calendar = new FullCalendar.Calendar(calendarEl, { 
+	headerToolbar: { 
+		left: 'prev,next today',
+		center: 'title', 
+		right: 'dayGridMonth,timeGridWeek,timeGridDay' 
+	}, 
+	//initialDate: '2021-04-12', // 초기 로딩 날짜. 
+	navLinks: true, // can click day/week names to navigate views 
+	selectable: true, 
+	selectMirror: true, // 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용.. 
+	select: function(arg) { 
+		console.log(arg); 
+		
+		var title = prompt('입력할 일정:'); // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
+    if (title) { 
+        calendar.addEvent({ 
+            title: title, 
+            start: arg.start, 
+            end: arg.end,
+            allDay: arg.allDay, 
+            backgroundColor:"yellow", 
+            textColor:"blue" 
+        }) 
+     }
+     calendar.unselect() 
 
-                                    
-                               }); //.each()
-                               
-                               console.log(events);
-                               
-                           }//if end                           
-                           successCallback(events);                               
-                       }//success: function end                          
-            }); //ajax end
-        }, //events:function end
-   });//new FullCalendar end
- 
-   calendar.render();
-   
-}); */
+     }, 
+     eventClick: function(arg) { 
+         // 있는 일정 클릭시, 
+         console.log("#등록된 일정 클릭#"); 
+         console.log(arg.event); 
+         if (confirm('Are you sure you want to delete this event?')) { 
+             arg.event.remove() 
+         } 
+     }, 
+     editable: true, 
+     dayMaxEvents: true, // allow "more" link when too many events 
+     events: [
+    	 {
+    		 title: 'Dinner',
+    		 start: '2022-01-11T20:00:00'
+    		 },
+    		 {
+    		 title: 'Birthday Party',
+    		 start: '2022-01-12T07:00:00'
+         }
 
-$(document).ready(function(){
-$.ajax({
-	url: '/calendar',
-	type: 'GET',
-	dataType: 'json',
-	contentType: 'charset=UTF-8',
-	cache: false,
-	success: function(data){
-		alert("성공");
-		console.log(res);
-	},
-	error:function(e){
-        if(e.status==300){
-             alert("실패");
-        }
-	}
-	
-})
-});  
 
+
+     ]      
+         //================ ajax데이터 불러올 부분 =====================//
+});   
+    calendar.render(); 
+
+    });
 
 
 </script>

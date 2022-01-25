@@ -64,16 +64,16 @@ public class RoomInfoController {
 	
 	
 	// �� ��� ������ ����
-	@RequestMapping(value = "/insertRoom", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/insertRoom", method = RequestMethod.GET)
 	public String inInsertRoom() {				
 		
-		return "insertRoom";		
+		return "admin/insertRoom";		
 		
 	}
 	
 	
 	// �� ���
-	@RequestMapping(value = "/insertRoom", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/insertRoom", method = RequestMethod.POST)
 	public String insertRoom(HttpServletRequest request, @RequestParam("image") MultipartFile uploadFile) {
 		
 		RoomInfoEntity entity = new RoomInfoEntity();
@@ -119,7 +119,7 @@ public class RoomInfoController {
 		
 		System.out.println("�̹��� ���� �Ϸ�");
 		
-		return "redirect:/";
+		return "redirect:/admin/home";
 		
 		
 	}		

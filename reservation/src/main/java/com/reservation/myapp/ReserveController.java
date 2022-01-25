@@ -49,31 +49,31 @@ public class ReserveController {
 	
 	
 	
-	// 예약
-	//@ResponseBody // �ڹ� ��ü�� HTTP ���� ������ ��ü�� ��ȯ
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
+	// 캘린더
+	//@ResponseBody 
+	@RequestMapping(value = "/fullcalendar", method = RequestMethod.GET)
 	public String calendar(Model model, HttpServletRequest request) {
 		
-		/*
-		 * Map<String, Object> map = new HashMap<String, Object>();
-		 * 
-		 * List<ReserveEntity> list = reserveRepository.findAll();
-		 * 
-		 * System.out.println(list);
-		 */
-		/*
-		 * map.put("roomInfo_No", list.get(0).getRoomInfo_No()); map.put("startDate",
-		 * list.get(0).getStartDate()); map.put("endDate", list.get(0).getEndDate());
-		 * map.put("totalCost", list.get(0).getTotalcost());
-		 */
+/*		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		//map.put("list", list);
+		List<ReserveEntity> list = reserveRepository.findAll();
+		 
+		System.out.println(list);
 		
-		//System.out.println(map);
+	
+		map.put("roomInfo_No", list.get(0).getRoomInfo_No()); map.put("startDate",
+		list.get(0).getStartDate()); map.put("endDate", list.get(0).getEndDate());
+		map.put("totalCost", list.get(0).getTotalcost());
+		
+		
+		map.put("list", list);
+		
+		System.out.println(map); */
 		
 		//model.addAttribute("list", list);
 		
-		return "calendar";		
+		return "fullcalendar";		
 		
 	}	
 	
@@ -86,18 +86,19 @@ public class ReserveController {
 		model.addAttribute("room", dto);
 		
 		
-		return "reserve";		
+		return "main/reserve";		
 		
 	}
 	
 	
 	// ����
-	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
+	@RequestMapping(value = "/main/reserve", method = RequestMethod.POST)
 	public String reserve(HttpServletRequest request) {
 		
 		// ReserveEntity entity = new ReserveEntity();
 		ReserveDto dto = new ReserveDto();	
 		
+		int no = Integer.parseInt(request.getParameter("no"));
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		String adult = request.getParameter("adult"); // ���� ��
@@ -108,6 +109,10 @@ public class ReserveController {
 		String bankName = request.getParameter("bankName");
 		String bankBranchCde = request.getParameter("bankBranchCde"); // ������ȣ
 		String bankNo = request.getParameter("bankNo");	// ���¹�ȣ	
+		
+		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+		
+		System.out.println(no);
 		
 		dto.setName(name);		
 		dto.setPhone(phone);
@@ -126,6 +131,10 @@ public class ReserveController {
 		dto.setCancelFlg("0");
 		dto.setDeleteFlg("0"); 
 		dto.setBuildCd(2); 
+		
+		//dto.setRoomNo(1);
+		//dto.setRoomNum(no);
+		dto.setRoomInfoEntity(RoomInfoEntity.builder().no(no).build());
 		
 		reserveService.insertReserve(dto);
 		

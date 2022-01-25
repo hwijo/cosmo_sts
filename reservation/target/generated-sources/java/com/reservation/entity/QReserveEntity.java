@@ -54,6 +54,8 @@ public class QReserveEntity extends EntityPathBase<ReserveEntity> {
 
     public final QRoomInfoEntity roomInfoEntity;
 
+    public final NumberPath<Integer> roomNo = createNumber("roomNo", Integer.class);
+
     public final StringPath startDate = createString("startDate");
 
     public final NumberPath<Integer> totalcost = createNumber("totalcost", Integer.class);

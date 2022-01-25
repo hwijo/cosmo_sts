@@ -26,6 +26,9 @@
 
 <div class="work-area">
 
+	<div class="container" style="padding : 50px;"align="center">
+	    
+	</div>
 
         <!-- 슬라이드 -->
 		<div id="bxslider" class="designer_area">
@@ -35,6 +38,13 @@
 				</ul>
 			</c:forEach>
 		</div>
+		<div class="form-group">
+			<button	onclick = "location.href='/admin/insertSliderimages' "class="btn btn-primary" style="float:right">スライドイメージ登録</button>
+		</div>
+		<div class="form-group">
+			<button	onclick = "location.href='/admin/insertRoom' "class="btn btn-primary" style="float:right">部屋登録</button>
+		</div>
+			
 			
 </div>
 
@@ -61,7 +71,7 @@
     	</c:forEach>
 	    </table>
 	    	<div class="form-group">
-				<button	onclick = "location.href='/insertNotice' "class="btn btn-primary" style="float:right">등록(관리자전용)</button>
+				<button	onclick = "location.href='/admin/insertNotice' "class="btn btn-primary" style="float:right">お知らせ登録</button>
 			</div>
 	    </div>
 

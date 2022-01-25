@@ -15,5 +15,8 @@
 	<definition name="*/*" extends="layout-tiles">
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 		<put-attribute name="title" value="home" /> <!-- value : 실제 뷰(jsp) 이름 -->
-	</definition>
+	</definition>	
+	
+
+	
 </tiles-definitions>

@@ -44,7 +44,9 @@
 <div>
 		<!-- 공지사항 -->
 		<div style="padding : 100px;">
-	    <p>お知らせ</p>
+		<div class="container" style="padding : 30px;" align="center">
+	        <h2>お知らせ</h2>
+	    </div>
 		<table class="table table-striped table-hover table-bordered">
 			<tr class="table-info text-center">
 				<td class="col-sm-5">title</td>
@@ -63,9 +65,7 @@
 		
     	</c:forEach>
 	    </table>
-	    	<div class="form-group">
-				<button	onclick = "location.href='/insertNotice' "class="btn btn-primary" style="float:right">등록(관리자전용)</button>
-			</div>
+
 	    </div>
 
 </div>

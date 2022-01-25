@@ -38,16 +38,16 @@ public class SliderimagesController {
 
 	
 	// �����̵� �̹��� ��� ����
-	@RequestMapping(value = "/insertSliderimages", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/insertSliderimages", method = RequestMethod.GET)
 	public String inInsertSliderimages() {				
 		
-		return "insertSliderimages";		
+		return "admin/insertSliderimages";		
 		
 	}
 	
 	
 	// �����̵� �̹��� 
-	@RequestMapping(value = "/insertSliderimages", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/insertSliderimages", method = RequestMethod.POST)
 	public String insertSliderimages(HttpServletRequest request, @RequestParam("image") MultipartFile uploadFile, Model model) {
 		
 		SliderimagesEntity entity = new SliderimagesEntity();
@@ -78,7 +78,7 @@ public class SliderimagesController {
 		
 		System.out.println("�̹��� ���� �Ϸ�");
 		
-		return "redirect:/";
+		return "redirect:/admin/home";
 		
 		
 	}	

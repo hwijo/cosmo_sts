@@ -58,6 +58,26 @@ public class NoticeController {
 		
 	}
 	
+	// 메인(슬라이드, 공지사항 리스트) admin
+	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
+	public String noticeListAdmin(Locale locale, Model model) {
+		
+		List<SliderimagesEntity> list = sliderimagesRepository.findAll();
+		// sort는 select할때 해주자
+		
+		model.addAttribute("images", list);		
+	
+		
+		List<NoticeEntity> notice = noticeService.selectNotice();
+		System.out.println("log : " + notice);
+		
+		model.addAttribute("notice", notice);		
+		
+		
+		return "admin/home";	
+		
+	}
+	
 	// 공지사항 상세보기
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String notice(Model model, HttpServletRequest request, int no) {
@@ -70,20 +90,20 @@ public class NoticeController {
 
 		model.addAttribute("sn", sn);
 
-		return "notice";
+		return "main/notice";
 
 	}
 
 	// 공지사항 등록 페이지 들어가기
-	@RequestMapping(value = "/insertNotice", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/insertNotice", method = RequestMethod.GET)
 	public String inInsertNotice(Model model, HttpServletRequest request) {
 
-		return "insertNotice";
+		return "admin/insertNotice";
 
 	}
 
 	// 공지사항 등록
-	@RequestMapping(value = "/insertNotice", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/insertNotice", method = RequestMethod.POST)
 	public String insertNotice(Model model, HttpServletRequest request) {
 
 		NoticeDto dto = new NoticeDto();
@@ -101,7 +121,7 @@ public class NoticeController {
 		noticeService.insertNotice(dto);
 		System.out.println("notice 저장 코드 끝");
 
-		return "redirect:/";
+		return "redirect:/admin/home";
 
 	}
 	
