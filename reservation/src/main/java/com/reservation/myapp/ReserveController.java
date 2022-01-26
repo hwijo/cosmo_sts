@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.tiles.request.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,33 +58,44 @@ public class ReserveController {
 /*		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		List<ReserveEntity> list = reserveRepository.findAll();
+		List<ReserveEntity> list = reserveService.selectAll();
 		 
 		System.out.println(list);
 		
 	
-		map.put("roomInfo_No", list.get(0).getRoomInfo_No()); map.put("startDate",
-		list.get(0).getStartDate()); map.put("endDate", list.get(0).getEndDate());
+		map.put("roomNum", list.get(0).getRoomInfoEntity()); 
+		map.put("startDate", list.get(0).getStartDate()); 
+		map.put("endDate", list.get(0).getEndDate());
 		map.put("totalCost", list.get(0).getTotalcost());
 		
 		
 		map.put("list", list);
 		
-		System.out.println(map); */
+		System.out.println(map); 
 		
-		//model.addAttribute("list", list);
+		model.addAttribute("list", list); */
 		
 		return "fullcalendar";		
 		
 	}	
 	
-	// ���������� ����
+	// 예약 페이지 들어가기
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET) // �ش� ���� Ÿ�� ����
-	public String inReserve(Model model) {				
+	public String inReserve(Model model, HttpServletRequest request, String startDate, String endDate) {				
+				
+		System.out.println("시작일 : " + startDate); // 잘 넘어옴
 		
 		List<RoomInfoEntity> dto = roomInfoService.selectRoom();
 		
+		List<ReserveEntity> dto2 = reserveService.selectAll();
+		
+		List<ReserveEntity> dto3 = reserveService.selectReserveByDate(startDate, endDate);
+		
 		model.addAttribute("room", dto);
+		
+		model.addAttribute("reserve", dto2);
+		
+		model.addAttribute("reserveinfo", dto3);
 		
 		
 		return "main/reserve";		

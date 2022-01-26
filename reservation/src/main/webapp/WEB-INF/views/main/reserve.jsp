@@ -27,13 +27,9 @@
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 
 
-<!-- jquery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- fullcalendar CDN -->
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
-<!-- fullcalendar 언어 CDN -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
@@ -50,9 +46,10 @@
 
 	<div class="container" style="padding : 80px;" align="center">
 	    <h2>予約</h2>
-	</div>
+	</div>  
 
-  			<div class="container">
+  			<div class="container"> 
+<%--              <c:if test="${empty reserveinfo.startDate}"> --%>
 				<form method="post" action="/reserve" id="insertForm" name="reserve">
 	  				<div class="card-deck mb-3 text-center">
 	    				<div class="card mb-4 shadow-sm">
@@ -89,12 +86,7 @@
 								    </select>
                                     </li>
 	          						</c:forEach>
-<!-- 	          						<li class="mb-2">
-	          							<button onclick="handleStartChange2()" type="button" class="btn btn-block btn-outline-secondary">roo2</button>
-	          						</li>
-	          						<li class="mb-2">
-	          							<button onclick="handleStartChange3()" type="button" class="btn btn-block btn-outline-secondary">room3</button>
-	          						</li> -->
+
 	        					</ul>
 	      					</div>
 	    				</div>
@@ -105,90 +97,57 @@
 	        					<h4 class="my-0 font-weight-normal">入退室日</h4>
 	      					</div>
 
+                        <!-- 캘린더 -->
+						<div style="padding:50px">
+							<input type="text" id="datepicker1" name="startDate"> ~ 
+							<input type="text" id="datepicker2" name="endDate">
+						</div>
 
-			<div class='col-md-3 col-xs-4' style="padding : 20px;" align="center">
-				<div class="form-group">
-					<div class="input-group date" id="datetimepicker1"
-						data-target-input="nearest">
-						<input type="text" style="width:300px" name="startDate"
-							data-target="#datetimepicker1" value="">
-						<div class="input-group-append" data-target="#datetimepicker1"
-							data-toggle="datetimepicker">
-							<div class="input-group-text">
-								<i class="fa fa-calendar"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class='col-md-3 col-xs-4' style="padding : 20px;" align="center">
-				<div class="form-group">
-					<div class="input-group date" id="datetimepicker2"
-						data-target-input="nearest">
-						<input type="text" style="width:300px" name="endDate"
-							data-target="#datetimepicker2" value="">
-						<div class="input-group-append" data-target="#datetimepicker2"
-							data-toggle="datetimepicker">
-							<div class="input-group-text">
-								<i class="fa fa-calendar"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			...
-			    <div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-primary float-right">予約</button>
-				</div>		
+
+						<div class="d-grid gap-2 col-6 mx-auto">
+					        <button type="submit" class="btn btn-primary float-right">予約</button>
+				        </div>		
 	      					
 
 	    				</div>		
 					</div>
 				</form>
+<%--   				</c:if> --%>
 				
-			<div id='calendar-container'>
-                <div id='calendar'></div>
-            </div>
 
 
 
+<script type="text/javascript">
+$(function() {
+    $("#datepicker1").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0,
+        showOn: "both" 
+    });        
+    $("#datepicker2").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0,
+        showOn: "both"                       
+    });
+    
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("option", "maxDate", $("#datepicker2").val());
+    $('#datepicker1').datepicker("option", "onClose", function ( selectedDate ) {
+        $("#datepicker2").datepicker( "option", "minDate", selectedDate );
+    });
 
-			<script type="text/javascript">
-				$(function() {
-					$('#datetimepicker1').datetimepicker({
-						timepicker : false,
-						format : 'YYYY-MM-DD',
-						minDate : new Date(0)
-					});
+    $('#datepicker2').datepicker();
+    $('#datepicker2').datepicker("option", "minDate", $("#sdate").val());
+    $('#datepicker2').datepicker("option", "onClose", function ( selectedDate ) {
+        $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
+    });
+    
+});
 
-					//$('#datetimepicker1').datetimepicker('minDate',	0);					
-
-					$('#datetimepicker2').datetimepicker({
-						format : 'YYYY-MM-DD',
-						useCurrent : false
-					});
-					$("#datetimepicker1").on(
-							// 시작날짜, 날짜 선택했을 때 인풋에 날짜 출력
-							"change.datetimepicker",
-							function(e) {
-								$('#datetimepicker2').datetimepicker('minDate',
-										e.date);
-								console.log(e);
-
-							});
-					$("#datetimepicker2").on(
-							// 끝날짜
-							"change.datetimepicker",
-							function(e) {
-								$('#datetimepicker1').datetimepicker('maxDate',
-										e.date);
-								console.log(e);
-							});
-
-				});
-			</script>
-
-		</div>
+	
+</script>
+        
+	    </div>
 
 
 

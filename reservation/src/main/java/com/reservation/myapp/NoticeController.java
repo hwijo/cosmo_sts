@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.reservation.dto.NoticeDto;
 import com.reservation.entity.NoticeEntity;
+import com.reservation.entity.ReserveEntity;
+import com.reservation.entity.RoomInfoEntity;
 import com.reservation.entity.SliderimagesEntity;
 import com.reservation.repository.RoomInfoRepository;
 import com.reservation.repository.SliderimagesRepository;
 import com.reservation.service.NoticeService;
+import com.reservation.service.ReserveService;
+import com.reservation.service.RoomInfoService;
 
 
 
@@ -31,6 +35,12 @@ public class NoticeController {
 	
 	@Autowired 
 	NoticeService noticeService;
+	
+	@Autowired
+	RoomInfoService roomInfoService;
+
+	@Autowired
+	ReserveService reserveService;
 
 	@Autowired 
 	RoomInfoRepository roomInfoRepository;
@@ -51,7 +61,17 @@ public class NoticeController {
 		List<NoticeEntity> notice = noticeService.selectNotice();
 		System.out.println("log : " + notice);
 		
-		model.addAttribute("notice", notice);		
+		model.addAttribute("notice", notice);	
+		
+		//List<RoomInfoEntity> room = roomInfoService.selectRoom();
+		
+		//model.addAttribute("roomInfo", room);
+		
+		/*
+		 * List<ReserveEntity> dto2 = reserveService.selectAll();
+		 * 
+		 * model.addAttribute("reserveInfo", dto2);
+		 */
 		
 		
 		return "main/home";	

@@ -20,7 +20,7 @@ import com.reservation.repository.ReserveRepository;
 public class ReserveServiceImpl implements ReserveService {		
 	
 	@Autowired
-	public ReserveRepository noticeRepository;
+	public ReserveRepository reserveRepository;
 	
 	
 	/*
@@ -40,9 +40,21 @@ public class ReserveServiceImpl implements ReserveService {
 		ReserveEntity reserveEntity = new ReserveEntity();
 		ModelMapper modelMapper = new ModelMapper();
 		reserveEntity = modelMapper.map(reserveDto, ReserveEntity.class);
-		return noticeRepository.save(reserveEntity);
+		return reserveRepository.save(reserveEntity);
 	}
 
+
+	@Override
+	public List<ReserveEntity> selectAll() {
+		return reserveRepository.findAll();
+	}
+
+
+
+	@Override
+	public List<ReserveEntity> selectReserveByDate(String startDate, String endDate) {
+		return reserveRepository.selectReserveByDate(startDate, endDate);
+	}
 
 
 
