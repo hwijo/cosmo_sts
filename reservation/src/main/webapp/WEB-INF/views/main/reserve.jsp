@@ -40,6 +40,8 @@
 
 
 <body>
+
+
     
 
 <div class="work-area">	
@@ -47,9 +49,10 @@
 	<div class="container" style="padding : 80px;" align="center">
 	    <h2>予約</h2>
 	</div>  
+	
 
   			<div class="container"> 
-<%--              <c:if test="${empty reserveinfo.startDate}"> --%>
+<%--             <c:if test="${not empty reserveinfo.startDate}"> --%>
 				<form method="post" action="/reserve" id="insertForm" name="reserve">
 	  				<div class="card-deck mb-3 text-center">
 	    				<div class="card mb-4 shadow-sm">
@@ -61,7 +64,7 @@
 	        						<li class="mb-2">
 	        							<strong id="start"></strong>
 	        						</li>
-	        						<c:forEach var="room" items="${room}">
+	        						
 	        						<li>
 	          							<img src="/resources/roomimages/${room.images}" width="200px" height="200px"/>
 	          						<div>
@@ -72,20 +75,21 @@
 	          						</li>	          						
 	          						<li>
 	          						<input type="hidden" value="${room.no}" name="no">
-	          						<select name="adult" class="form-control mb-2" style="text-align-last: center;">
+	          						<select name="adult" style="text-align-last: center;">
 	        						<option value="">大人</option>	
 	        							<c:forEach var="i" begin="1" end="${room.max}">	
 	        							    <option><c:out value="${i}"/></option>		
 										</c:forEach>				   	
 								    </select>
-								    <select name="child" class="form-control mb-2" style="text-align-last: center;">
+								    <select name="child" style="text-align-last: center;">
 									<option value="">子供</option>
 									    <c:forEach var="i" begin="1" end="${room.max}">	
 	        							    <option><c:out value="${i}"/></option>		
 										</c:forEach>								
 								    </select>
                                     </li>
-	          						</c:forEach>
+	          						
+	          						
 
 	        					</ul>
 	      					</div>
@@ -97,12 +101,21 @@
 	        					<h4 class="my-0 font-weight-normal">入退室日</h4>
 	      					</div>
 
-                        <!-- 캘린더 -->
+                        <!-- 예약 날짜 -->
 						<div style="padding:50px">
 							<input type="text" id="datepicker1" name="startDate"> ~ 
 							<input type="text" id="datepicker2" name="endDate">
 						</div>
-
+						
+						<div>
+						    <p>은행<input type="text" name="bankName"></p>
+						    <p>전화번호<input type="text" name="phone"></p>
+						    <p>금액<input type="text" name="totalcost"></p>						
+						</div>
+						
+						
+						
+	
 
 						<div class="d-grid gap-2 col-6 mx-auto">
 					        <button type="submit" class="btn btn-primary float-right">予約</button>
@@ -111,8 +124,8 @@
 
 	    				</div>		
 					</div>
-				</form>
-<%--   				</c:if> --%>
+				</form>    				
+<%-- 				</c:if> --%>
 				
 
 

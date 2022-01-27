@@ -13,6 +13,6 @@ public interface ReserveService {
 	public List<ReserveEntity> selectAll();
 	
 	public List<ReserveEntity> selectReserveByDate(String startDate, String endDate);
-
-
+	
+	public List<ReserveEntity> searchReserve(String startDate, String endDate);
 }

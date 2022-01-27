@@ -60,10 +60,10 @@
 				<option><c:out value="${roomInfo.roomTitle}" /></option>
 			</c:forEach>
 		</select> --%>
-		<button type="button" class="btn btn-primary" 
-			onclick="location.href='/reserve?startDate=${startDate}&endDate=${endDate}'">検索</button>
+		<%-- <button type="button" class="btn btn-primary" 
+			onclick="location.href='/reserve?startDate=${startDate}&endDate=${endDate}'">検索</button> --%>
 
-	    <a href="/reserve" id="search">	       
+	    <a href="/canReserveList" id="search">	       
 	    <button class="btn btn-sm btn-primary" name="search" id="search">検索</button></a>
 
 	</div>
@@ -81,14 +81,15 @@
 					<td class="col-sm-1">date</td>
 				</tr>
 
-
 				<c:forEach var="notice" items="${notice}">
+				<c:if test="${notice.buildCd eq 2}">
 					<tr>
 						<td class="text-center"><a href="notice?no=${notice.no}">${notice.title}</a></td>
 						<fmt:formatDate value="${notice.updatedAt}" pattern="yy-MM-dd"
 							var="rewriteDate"></fmt:formatDate>
 						<td class="text-center">${rewriteDate}</td>
 					</tr>
+				</c:if>
 				</c:forEach>
 			</table>
 
@@ -146,7 +147,7 @@
 							});
 
 					$("#search").on("click", function(event) {
-						$(this).attr("href", function(i,val){ // i 속성을 추가하고 값은 val
+						$(this).attr("href", function(i,val){ // i 속성을 추가하고 값(원주소)은 val
 							return val+"?startDate="+$("#datepicker1").val() + "&endDate="+$("#datepicker2").val();
 						});
 					});

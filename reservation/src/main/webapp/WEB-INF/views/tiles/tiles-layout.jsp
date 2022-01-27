@@ -31,14 +31,18 @@
   
   	<div class='wrap'>
     		<tiles:insertAttribute name="header" />
-<%--		  <div class='content'>  	
+<%--		<div class='content'>  	
   			<tiles:insertAttribute name="left"/>
 	  		<div class="page_content"> --%>
-	  			<tiles:insertAttribute name="body"/>
-	  		</div>
+	  		<tiles:insertAttribute name="body"/>
+<%-- 	  		<tiles:insertAttribute name="foot" /> --%>
+	  		
+	</div>
 <%--   		</div>
   		<tiles:insertAttribute name="foot" />
+  		
   	</div> --%>
+  	<tiles:insertAttribute name="foot" />
   </body>
   
 </html>

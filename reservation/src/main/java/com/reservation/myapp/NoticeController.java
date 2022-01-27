@@ -56,23 +56,11 @@ public class NoticeController {
 		// sort는 select할때 해주자
 		
 		model.addAttribute("images", list);		
-	
 		
 		List<NoticeEntity> notice = noticeService.selectNotice();
 		System.out.println("log : " + notice);
 		
 		model.addAttribute("notice", notice);	
-		
-		//List<RoomInfoEntity> room = roomInfoService.selectRoom();
-		
-		//model.addAttribute("roomInfo", room);
-		
-		/*
-		 * List<ReserveEntity> dto2 = reserveService.selectAll();
-		 * 
-		 * model.addAttribute("reserveInfo", dto2);
-		 */
-		
 		
 		return "main/home";	
 		
@@ -141,7 +129,7 @@ public class NoticeController {
 		noticeService.insertNotice(dto);
 		System.out.println("notice 저장 코드 끝");
 
-		return "redirect:/admin/home";
+		return "redirect:/";
 
 	}
 	

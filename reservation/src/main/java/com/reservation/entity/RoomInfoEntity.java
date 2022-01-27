@@ -9,13 +9,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(
@@ -51,6 +50,8 @@ public class RoomInfoEntity {
 	
 	@UpdateTimestamp // update�� ���� �ð��� �о ����
 	private Date updatedAt;
+	
+	
 	private int buildCd;
 	
 
@@ -68,9 +69,7 @@ public class RoomInfoEntity {
 	        this.buildCd = buildCd;
 
 	        
-	    }
-	
-	
+	    }	
 	
 	
 

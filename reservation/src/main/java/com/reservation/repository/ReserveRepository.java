@@ -23,6 +23,8 @@ public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
 	@Modifying
 	@Query("select r from ReserveEntity r where r.startDate = :startDate or r.endDate = :endDate")
 	List<ReserveEntity> selectReserveByDate(@Param(value="startDate") String startDate, @Param(value="endDate") String endDate);
+	
+	List<ReserveEntity> findByStartDateLikeOrEndDateLike(String startDate, String endDate);
 
 
 

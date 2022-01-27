@@ -22,33 +22,36 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.reservation.dto.RoomInfoDto;
 import com.reservation.entity.RoomInfoEntity;
 import com.reservation.repository.RoomInfoRepository;
 import com.reservation.repository.UserSha256;
+import com.reservation.service.RoomInfoService;
 
 
 @Controller
-public class RoomInfoController {
-	
+public class RoomInfoController {	
 
 	@Autowired 
-	RoomInfoRepository roomInfoRepository;
+	RoomInfoService roomInfoService;
 
 	
-	// �� ����Ʈ
+	// 방 리스트
 	@RequestMapping(value = "/roomList", method = RequestMethod.GET)
 	public String roomList(Model model, HttpServletRequest request) {
 		
-		List<RoomInfoEntity> roomList = roomInfoRepository.findAll();
-		System.out.println("log : " + roomList);
+		List<RoomInfoDto> roomList = roomInfoService.selectRoom();
+		System.out.println("방 리스트 : " + roomList);
 		
-		model.addAttribute("roomList", roomList);		
+		model.addAttribute("room", roomList);		
 		
-		return "roomList";
+		return "/main/roomList";
 		
 
 	}
 	
+
+/*	
 	// �� ����
 	@RequestMapping(value = "/roomInfo", method = RequestMethod.GET)
 	public String roomInfo(Model model, HttpServletRequest request, int no) {
@@ -61,7 +64,7 @@ public class RoomInfoController {
 		return "roomInfo";		
 
 	}
-	
+*/	
 	
 	// �� ��� ������ ����
 	@RequestMapping(value = "/admin/insertRoom", method = RequestMethod.GET)
@@ -71,7 +74,7 @@ public class RoomInfoController {
 		
 	}
 	
-	
+/*	
 	// �� ���
 	@RequestMapping(value = "/admin/insertRoom", method = RequestMethod.POST)
 	public String insertRoom(HttpServletRequest request, @RequestParam("image") MultipartFile uploadFile) {
@@ -124,7 +127,7 @@ public class RoomInfoController {
 		
 	}		
 
-
+*/
 
 
 

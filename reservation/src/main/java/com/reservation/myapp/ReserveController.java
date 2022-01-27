@@ -79,32 +79,72 @@ public class ReserveController {
 		
 	}	
 	
-	// 예약 페이지 들어가기
+	// 예약 페이지 들어가기(방 리스트에서 선택)
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET) // �ش� ���� Ÿ�� ����
-	public String inReserve(Model model, HttpServletRequest request, String startDate, String endDate) {				
+	public String inReserve(Model model,
+			HttpServletRequest request, int no) { 
+			
+								//, @RequestParam(value="startDate")String
+								//		 startDate, @RequestParam(value="endDate")String endDate
+										 //) {				
 				
-		System.out.println("시작일 : " + startDate); // 잘 넘어옴
+		//System.out.println("입실일 : " + startDate); // 잘 넘어옴
+		//System.out.println("퇴실일 : " + endDate); // 잘 넘어옴
 		
-		List<RoomInfoEntity> dto = roomInfoService.selectRoom();
+		//List<RoomInfoDto> dto = roomInfoService.selectRoom();
 		
-		List<ReserveEntity> dto2 = reserveService.selectAll();
 		
-		List<ReserveEntity> dto3 = reserveService.selectReserveByDate(startDate, endDate);
+		//List<ReserveEntity> dto2 = reserveService.selectAll();
 		
-		model.addAttribute("room", dto);
+		// 예약 안된 방 찾기
+		//List<ReserveEntity> search = reserveService.searchReserve(startDate, endDate);
 		
-		model.addAttribute("reserve", dto2);
+		//model.addAttribute("room", dto);
 		
-		model.addAttribute("reserveinfo", dto3);
+		//model.addAttribute("reserve", dto2);
+		
+		//model.addAttribute("reserveinfo", search);
+		
+		
+		RoomInfoEntity selectRoom = roomInfoService.selectRoomById(no);
+		
+		model.addAttribute("room", selectRoom);
 		
 		
 		return "main/reserve";		
 		
 	}
 	
+	// 예약 가능한 방 리스트
+	@RequestMapping(value = "/canReserveList", method = RequestMethod.GET) // �ش� ���� Ÿ�� ����
+	public String inReserve(Model model, HttpServletRequest request, int no, @RequestParam(value="startDate") 
+								String startDate, @RequestParam(value="endDate") String endDate) {		
+				
+	    System.out.println("입실일 : " + startDate); // 잘 넘어옴
+		System.out.println("퇴실일 : " + endDate); // 잘 넘어옴
+		
+
+		// 예약 가능한 방 찾기
+		List<ReserveEntity> search = reserveService.searchReserve(startDate, endDate);
+		
+        model.addAttribute("search", search);		
+		
+		// 방 리스트
+        List<RoomInfoDto> roomList = roomInfoService.selectRoom();
+		System.out.println("방 리스트 : " + roomList);
+		
+		model.addAttribute("room", roomList);		
+		
+        
+		return "main/canReserveList";		
+		
+	}
 	
-	// ����
-	@RequestMapping(value = "/main/reserve", method = RequestMethod.POST)
+
+	
+	
+	// 예약하기
+	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
 	public String reserve(HttpServletRequest request) {
 		
 		// ReserveEntity entity = new ReserveEntity();
@@ -117,7 +157,7 @@ public class ReserveController {
 		String child = request.getParameter("child"); // ���� ��
 		String startDate = request.getParameter("startDate"); // ���� ���� ��¥
 		String endDate = request.getParameter("endDate"); // ���� �� ��¥
-		//int totalcost = Integer.parseInt(request.getParameter("totalcost"));
+		int totalcost = Integer.parseInt(request.getParameter("totalcost"));
 		String bankName = request.getParameter("bankName");
 		String bankBranchCde = request.getParameter("bankBranchCde"); // ������ȣ
 		String bankNo = request.getParameter("bankNo");	// ���¹�ȣ	
@@ -132,13 +172,13 @@ public class ReserveController {
 		dto.setChild(child);
 		dto.setStartDate(startDate);
 		dto.setEndDate(endDate);
-		//entity.setTotalcost(totalcost);
+		dto.setTotalcost(totalcost);
 		dto.setBankName(bankName);
 		dto.setBankBranchCde(bankBranchCde);
 		dto.setBankNo(bankNo);
 		
 		// ������
-		dto.setOptions("����");
+		//dto.setOptions("����");
 		dto.setPaymentFlg("0");
 		dto.setCancelFlg("0");
 		dto.setDeleteFlg("0"); 
