@@ -47,8 +47,12 @@
 <div class="work-area">	
 
 	<div class="container" style="padding : 80px;" align="center">
-	    <h2>予約</h2>
+	    <h2>予約</h2>	    
 	</div>  
+	
+	<c:forEach var="date" items="${date}">
+	    <p id="date">${date.startDate}</p>	
+	</c:forEach>
 	
 
   			<div class="container"> 
@@ -131,17 +135,40 @@
 
 
 <script type="text/javascript">
+
 $(function() {
+
+	
     $("#datepicker1").datepicker({
         dateFormat: 'yy-mm-dd',
         minDate: 0,
-        showOn: "both" 
-    });        
+        showOn:"both",
+        buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif", 
+        beforeShowDay: my_check // 캘린더가 실행 되기 전에 실행
+    });
+
     $("#datepicker2").datepicker({
         dateFormat: 'yy-mm-dd',
         minDate: 0,
-        showOn: "both"                       
+        showOn:"both",
+        buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif"                       
+        
     });
+        
+    function my_check(in_date) {
+        in_date = in_date.getFullYear() + '-'
+        + (in_date.getMonth() + 1) + '-' + in_date.getDate();
+        console.log(in_date)
+        
+        var my_array = new Array('2022-1-30', '2022-1-31'); // 막을 날짜 담기
+        //$('#d1').append(in_date+'<br>')
+        if (my_array.indexOf(in_date) >= 0) { // 찾는 문자열이 없으면 -1 리턴
+            return [false, "notav", 'Not Available'];
+        } else {
+            return [true, "av", "available"];
+        }
+    }
+    
     
     $('#datepicker1').datepicker();
     $('#datepicker1').datepicker("option", "maxDate", $("#datepicker2").val());
@@ -156,6 +183,9 @@ $(function() {
     });
     
 });
+
+
+
 
 	
 </script>

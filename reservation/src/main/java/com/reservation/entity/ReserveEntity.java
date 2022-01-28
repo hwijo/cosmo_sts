@@ -72,11 +72,13 @@ public class ReserveEntity {
 	
 	private int roomNo;
 
+	/*
 	@ManyToOne(targetEntity=RoomInfoEntity.class, fetch=FetchType.LAZY)
 	@JoinColumn(name = "roomNum") // roomInfo의 기본키 no와 reserve의 외래키 roomNum 연결
 	private RoomInfoEntity roomInfoEntity;
+	*/
 	
-	//private int roomNum;
+	private int roomNum;
 
 	@Builder
 	public ReserveEntity(String name, String phone, String adult, String child, String startDate, String endDate, String options, 
@@ -97,8 +99,8 @@ public class ReserveEntity {
 	        this.bankBranchCde = bankBranchCde;
 	        this.bankNo = bankNo;
 	        this.deleteFlg = deleteFlg;
-	        //this.roomNum = roomNum;
-	        this.roomInfoEntity = roomInfoEntity;
+	        this.roomNum = roomNum;
+	        //this.roomInfoEntity = roomInfoEntity;
 	        this.buildCd = buildCd;     
 	        
 	    }

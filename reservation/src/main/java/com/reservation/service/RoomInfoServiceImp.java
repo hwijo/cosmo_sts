@@ -24,6 +24,7 @@ public class RoomInfoServiceImp implements RoomInfoService {
 	@Autowired
 	private RoomInfoRepository roomInfoRepository;
 	
+	
 	@Transactional
 	@Override
 	public List<RoomInfoDto> selectRoom() {
@@ -37,7 +38,23 @@ public class RoomInfoServiceImp implements RoomInfoService {
 		}
 		
 		return roomInfoDtoList;
-	}	
+	}	;
+	
+	@Transactional
+	@Override
+	public List<RoomInfoDto> selectRoom(String startDate, String endDate) {
+		List<RoomInfoEntity> roomInfoEntities = roomInfoRepository.selectRoomCan(startDate, endDate);
+		List<RoomInfoDto> roomInfoDtoList = new ArrayList<>();
+		
+		if(roomInfoEntities.isEmpty()) 
+			return roomInfoDtoList;
+		for(RoomInfoEntity roomInfo : roomInfoEntities) {
+			roomInfoDtoList.add(this.convertEntityToDto(roomInfo));
+		}
+		
+		return roomInfoDtoList;
+	}
+
 	
 	@Transactional
 	@Override

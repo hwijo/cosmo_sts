@@ -2,6 +2,7 @@ package com.reservation.service;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.reservation.dto.NoticeDto;
 import com.reservation.dto.ReserveDto;
+import com.reservation.dto.RoomInfoDto;
 import com.reservation.dto.ReserveDto.ReserveDtoBuilder;
 import com.reservation.entity.NoticeEntity;
 import com.reservation.entity.ReserveEntity;
@@ -37,7 +39,7 @@ public class ReserveServiceImpl implements ReserveService {
 	 */
 
 
-
+    // 예약
 	@Override
 	public ReserveEntity insertReserve(ReserveDto reserveDto) {
 		ReserveEntity reserveEntity = new ReserveEntity();
@@ -67,9 +69,54 @@ public class ReserveServiceImpl implements ReserveService {
 
 	}
     
-/*    
-    private ReserveDto convertEntityToDto(ReserveEntity reserve) {
-        return ReserveDto.builder()
+	@Override
+	public List<ReserveDto> selectReserveDate(int no) {
+		List<ReserveEntity> reserveEntities = reserveRepository.selectReserveDate(no);
+		List<ReserveDto> reserveDtoList = new ArrayList<>();
+		
+		if(reserveEntities.isEmpty()) 
+			return reserveDtoList;
+		for(ReserveEntity reserve : reserveEntities) {
+			reserveDtoList.add(this.convertEntityToDto(reserve));
+		}
+		
+		return reserveDtoList;
+	}
+
+
+
+	/*
+	 * @Override public List<ReserveDto> searchReserve(String startDate) {
+	 * List<ReserveEntity> reserveEntities =
+	 * reserveRepository.findByStartDateLike(startDate); List<ReserveDto>
+	 * reserveDtoList = new ArrayList<>();
+	 * 
+	 * if(reserveEntities.isEmpty()) return reserveDtoList; for(ReserveEntity
+	 * reserve : reserveEntities) {
+	 * reserveDtoList.add(this.convertEntityToDto(reserve)); }
+	 * 
+	 * return reserveDtoList; }
+	 */
+
+    // 전체 예약 리스트
+	@Override
+	public List<ReserveDto> selectReserve() {
+		List<ReserveEntity> reserveEntities = reserveRepository.findAll();
+		List<ReserveDto> reserveDtoList = new ArrayList<>();
+		
+		if(reserveEntities.isEmpty()) 
+			return reserveDtoList;
+		for(ReserveEntity reserve : reserveEntities) {
+			reserveDtoList.add(this.convertEntityToDto(reserve));
+		}
+		
+		return reserveDtoList;
+	}
+	
+    
+	private ReserveDto convertEntityToDto(ReserveEntity reserve) {
+		RoomInfoEntity roomInfo = new RoomInfoEntity(); 
+    	return ReserveDto.builder()
 				.name(reserve.getName())
 				.phone(reserve.getPhone())
 				.adult(reserve.getAdult())
@@ -83,11 +130,16 @@ public class ReserveServiceImpl implements ReserveService {
 				.bankBranchCde("01")
 				.bankNo("01")
 				.deleteFlg("0")
+				.roomInfoEntity(RoomInfoEntity.builder().no(roomInfo.getNo()).build())
 				.buildCd(2)		
 				.build();	
         		
     }
-*/
+
+
+
+
+
 
 
 

@@ -15,4 +15,10 @@ public interface ReserveService {
 	public List<ReserveEntity> selectReserveByDate(String startDate, String endDate);
 	
 	public List<ReserveEntity> searchReserve(String startDate, String endDate);
+
+	public List<ReserveDto> selectReserve();
+
+	public List<ReserveDto> selectReserveDate(int no);
+
+	
 }
