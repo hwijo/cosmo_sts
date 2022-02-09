@@ -34,6 +34,9 @@ public class RoomInfoController {
 
 	@Autowired 
 	RoomInfoService roomInfoService;
+	
+	@Autowired 
+	RoomInfoRepository roomInfoRepository;
 
 	
 	// 방 리스트
@@ -45,28 +48,13 @@ public class RoomInfoController {
 		
 		model.addAttribute("room", roomList);		
 		
-		return "/main/roomList";
+		return "main/roomList";
 		
 
 	}
-	
 
-/*	
-	// �� ����
-	@RequestMapping(value = "/roomInfo", method = RequestMethod.GET)
-	public String roomInfo(Model model, HttpServletRequest request, int no) {
-		
-		RoomInfoEntity roomInfo = roomInfoRepository.findByNo(no);
-		System.out.println("log : " + roomInfo);
-		
-		model.addAttribute("roomInfo", roomInfo);		
-		
-		return "roomInfo";		
-
-	}
-*/	
 	
-	// �� ��� ������ ����
+	// 방 등록 페이지 들어가기
 	@RequestMapping(value = "/admin/insertRoom", method = RequestMethod.GET)
 	public String inInsertRoom() {				
 		
@@ -74,16 +62,16 @@ public class RoomInfoController {
 		
 	}
 	
-/*	
-	// �� ���
+	
+	// 방 등록
 	@RequestMapping(value = "/admin/insertRoom", method = RequestMethod.POST)
 	public String insertRoom(HttpServletRequest request, @RequestParam("image") MultipartFile uploadFile) {
 		
-		RoomInfoEntity entity = new RoomInfoEntity();
+		RoomInfoEntity en = new RoomInfoEntity();
 		
 		//RoomInfoDto dto = new RoomInfoDto();
 			
-		String roomNum = request.getParameter("roomNum");
+		//String roomNum = request.getParameter("roomNum");
 		String roomTitle = request.getParameter("roomTitle");
 		int max = Integer.parseInt(request.getParameter("max"));
 		int adultCost = Integer.parseInt(request.getParameter("adultCost"));
@@ -106,28 +94,28 @@ public class RoomInfoController {
 			}
 		}   
 				
-		entity.setRoomNum(roomNum);		
-		entity.setRoomTitle(roomTitle);
-		entity.setMax(max);
-		entity.setAdultCost(adultCost);
-		entity.setChildCost(childCost);
-		entity.setExplnation(explnation);
-		entity.setImages(fileName);
-		entity.setColorCd(colorCd);
+		//entity.setRoomNum(roomNum);		
+		en.setRoomTitle(roomTitle);
+		en.setMax(max);
+		en.setAdultCost(adultCost);
+		en.setChildCost(childCost);
+		en.setExplnation(explnation);
+		en.setImages(fileName);
+		en.setColorCd(colorCd);
 		
-		entity.setDeleteFlg("0"); // ������
-		entity.setBuildCd(2); // ������
+		en.setDeleteFlg("0"); // ������
+		en.setBuildCd(2); // ������
 		
-		roomInfoRepository.save(entity);
+		roomInfoRepository.save(en);
 		
 		System.out.println("�̹��� ���� �Ϸ�");
 		
-		return "redirect:/admin/home";
+		return "redirect:/admin";
 		
 		
 	}		
 
-*/
+
 
 
 

@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+ 
+<%@page import="java.util.*"%>
+<% 
+    request.setCharacterEncoding("UTF-8");
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -13,6 +17,7 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 <script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
 <!-- include summernote css/js-->
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css"
@@ -22,37 +27,40 @@
 
 <!-- 방 등록/수정 -->
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/js/bootstrap-colorpicker.min.js"></script>  
+
+
+
 <body>
 <div class="work-area">	
 　　　 <div align="center">
-        <h2>방 등록/수정</h2>
+        <h2>部屋登録</h2>
     </div>
 
-	<form id="insertForm" name="insert" action="/insertRoom" method="post" enctype="multipart/form-data">
-			<table class="table table-bordered">
-				<tr>
-					<td class="text-center"><strong>방 번호</strong></td>		
-					<td colspan="3"><input type="text" required="required" id="roomNum" name="roomNum" class="col-sm-9 col-form-label"></td>		
-				</tr>				
+	<form id="insertForm" name="insert" action="/admin/insertRoom" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+			<table class="table table-bordered">		
 			    <tr>
-					<td class="text-center"><strong>제목</strong></td>		
+					<td class="text-center"><strong>部屋の名前</strong></td>		
 					<td colspan="3"><input type="text" required="required" id="roomTitle" name="roomTitle" class="col-sm-9 col-form-label"></td>		
 				</tr>
 				<tr>
-					<td class="text-center"><strong>최대인원</strong></td>		
+					<td class="text-center"><strong>最大人数</strong></td>		
 					<td colspan="3"><input type="text" required="required" id="max" name="max" class="col-sm-9 col-form-label"></td>		
 				</tr>
 				<tr>
-					<td class="text-center"><strong>성인가격</strong></td>		
+					<td class="text-center"><strong>大人料金</strong></td>		
 					<td colspan="3"><input type="text" required="required" id="adultCost" name="adultCost" class="col-sm-9 col-form-label"></td>		
 				</tr>
 				<tr>
-					<td class="text-center"><strong>소인가격</strong></td>		
+					<td class="text-center"><strong>子供料金</strong></td>
 					<td colspan="3"><input type="text" required="required" id="childCost" name="childCost" class="col-sm-9 col-form-label"></td>		
 				</tr>
 				<tr>
-					<td class="text-center align-middle"><strong>내용</strong></td>
-					<td colspan="3"><textarea required="required" id="explanation" name="explanation" rows="7" class="col-sm-9 col-form-label"></textarea></td>
+					<td class="text-center align-middle"><strong>部屋の情報</strong></td>
+					<td colspan="3"><textarea required="required" id="summernote" name="explnation" rows="7" class="col-sm-9 col-form-label"></textarea></td>
 				</tr>
 				
 				<tr>
@@ -62,13 +70,14 @@
 				<tr>
 				
 				<tr>
-					<td class="text-center align-middle"><strong>컬러</strong></td>
-					<td colspan="3"><input type="text" required="required" id="colorCd" name="colorCd" class="col-sm-9 col-form-label"></td>
+					<td class="text-center align-middle"><strong>カーラー</strong></td>
+					<td colspan="3">					
+				    <input class="form-control" type="text" id="colorCd" name="colorCd"/>
 				</tr>
 				
 				</table>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-primary float-right">등록</button>
+					<button type="submit" class="btn btn-primary float-right">登録</button>
 				</div>		
 		</form>
 			
@@ -90,7 +99,12 @@
 			
 <script>
 		$(document).ready(function() {
-			$('#summernote').summernote({                                        
+			$("#colorCd").colorpicker({
+
+
+			});
+			
+			$("#summernote").summernote({                                        
 				height : 300,
 				minHeight : null,
 				maxHeight : null,

@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Builder;
@@ -32,7 +34,11 @@ public class ConsultationEntity {
 	private int no;
 		
 	private String name;
-	private int grno; // 댓글 번호
+
+	//@Generated(GenerationTime.INSERT) // 자동으로 pk값 생성
+    //@Column(name= "grno", insertable = false)
+	private int grno; // 상담글 번호
+	
 	private int grgrod; // 답글 번호 (그냥 댓글 : 0)
 	private int depth; // 깊이 (그냥 댓글 : 0, 답글 : 1, 다음 답글 : 2...)
 	private String title;

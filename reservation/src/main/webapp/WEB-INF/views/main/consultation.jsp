@@ -11,40 +11,32 @@
 	crossorigin="anonymous">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 </head>
 <body>
 
-<div>
-<div>
-		<!-- 상담 -->
-		<div style="padding : 100px;">
-	   	<div class="container" style="padding : 50px;" align="center">
-	        <h2>相談</h2>
-	    </div>
-		<table class="table table-striped table-hover table-bordered">
-			<tr class="table-info text-center">
-				<td class="col-sm-5">title</td>
-				<td class="col-sm-1">date</td>
-			</tr>
-		
+<div class="work-area">
+		<div class="row" style="padding : 70px;">
+			<div class="col-lg-12">
+				<div class="panel-body"
+					style="display: flex; flex-direction: column;">
+					<div class="form-group">
+						<label>タイトル</label> <input readonly class="form-control"
+							value="${consul.title}">
+					</div>
+					<div class="form-group">
+						<label>내용</label>
+						<span>${consul.contents}</span>
+					</div>
+					
 
-	    <c:forEach var="list" items="${list}">		
-			<tr>
-				<td class="text-center">${list.title}</td>
-				<fmt:formatDate value="${list.updatedAt}" pattern="yy-MM-dd"
-					var="rewritedAt"></fmt:formatDate>
-				<td class="text-center">${rewritedAt}</td>				
-			</tr>		
-    	</c:forEach>
-	    </table>
+				</div>
+			</div>
 
-	    </div>
+		</div>
 
 </div>
 
-</div>
-
+<%-- <P>  The time on the server is ${serverTime}. </P> --%>
 </body>
 </html>

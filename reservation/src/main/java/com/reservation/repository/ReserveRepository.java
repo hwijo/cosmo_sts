@@ -31,12 +31,20 @@ public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
     List<ReserveEntity> findByStartDateLike(String startDate);
     
     
-	// 예약된 날짜를 찾는 쿼리
+	// 특정 방에 예약된 날짜를 찾는 쿼리(풀캘린더에서 사용)
 	@Transactional 
 	@Modifying
 	@Query("select r from ReserveEntity r join RoomInfoEntity room on r.roomNum = room.no where room.no = :no")
 	List<ReserveEntity> selectReserveDate(@Param(value="no") int no);
     // 쿼리에는 테이블명, 컬럼명이 아닌 entity 참고해서 작성할 것
+	
+	// 전체 예약일을 찾는 쿼리
+	@Transactional 
+	@Modifying
+	@Query("select r.startDate, r.endDate, room.roomTitle, room.colorCd from ReserveEntity r join RoomInfoEntity room on r.roomNum = room.no")
+	List<Object[]> selectReserve();
+    // 쿼리에는 테이블명, 컬럼명이 아닌 entity 참고해서 작성할 것
+	
 
    
 }

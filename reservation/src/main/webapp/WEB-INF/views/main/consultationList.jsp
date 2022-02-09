@@ -16,30 +16,52 @@
 </head>
 <body>
 
-<div>
+<div class="work-area">	
 <div>
 		<!-- 상담 -->
 		<div style="padding : 100px;">
-	   　　<div class="container" style="padding : 50px;" align="center">
+	   	<div class="container" style="padding : 50px;" align="center">
 	        <h2>相談</h2>
 	    </div>
+	   
+	   
 		<table class="table table-striped table-hover table-bordered">
 			<tr class="table-info text-center">
 				<td class="col-sm-5">title</td>
 				<td class="col-sm-1">date</td>
 			</tr>
-		
-
+		  
 	    <c:forEach var="list" items="${list}">		
+	    
+	    <!-- 답변글이 아닌 원글일 경우 -->
+	    <c:if test="${list.grgrod == 0}">
+	    <c:if test="${list.depth == 0}">
 			<tr>
-				<td class="text-center">${list.title}</td>
+				<td class="text-left"><a href="consultation?no=${list.no}">${list.title}</a></td>
 				<fmt:formatDate value="${list.updatedAt}" pattern="yy-MM-dd"
 					var="rewritedAt"></fmt:formatDate>
-				<td class="text-center">${rewritedAt}</td>
-				<td class="text-right"><button onclick = "location.href='/admin/consulReply?no=${list.no}' "class="btn btn-primary" style="float:right">답글 등록</button></td>
-			</tr>		
+				<td class="text-center">${rewritedAt}</td>				
+			</tr>
+		</c:if>	
+		</c:if>
+		<!-- 답글인 경우 -->
+	    <c:if test="${list.grgrod > 0}">
+	    <c:if test="${list.depth > 0}">
+			<tr>
+				<td class="text-left"><span style="color:red; font-style:italic;">&nbsp;RE:</span><a href="consultation?no=${list.no}">${list.title}</a></td>
+				<fmt:formatDate value="${list.updatedAt}" pattern="yy-MM-dd"
+					var="rewritedAt"></fmt:formatDate>
+				<td class="text-center">${rewritedAt}</td>				
+			</tr>
+		</c:if>	
+		</c:if>		
+		
     	</c:forEach>
 	    </table>
+	    
+	    <div class="form-group" style="text-align:right;" >
+			<button	onclick = "location.href='/insertConsultation' "class="btn btn-primary pull-right" >相談登録</button>
+		</div>	
 
 	    </div>
 

@@ -70,9 +70,9 @@ public class ReserveServiceImpl implements ReserveService {
 	}
     
 	@Override
-	public List<ReserveDto> selectReserveDate(int no) {
-		List<ReserveEntity> reserveEntities = reserveRepository.selectReserveDate(no);
-		List<ReserveDto> reserveDtoList = new ArrayList<>();
+	public List<Object[]> selectReserve() {
+		return reserveRepository.selectReserve();
+/*		List<ReserveDto> reserveDtoList = new ArrayList<>();
 		
 		if(reserveEntities.isEmpty()) 
 			return reserveDtoList;
@@ -80,9 +80,14 @@ public class ReserveServiceImpl implements ReserveService {
 			reserveDtoList.add(this.convertEntityToDto(reserve));
 		}
 		
-		return reserveDtoList;
+		return reserveDtoList;*/
 	}
 
+	
+	@Override
+	public List<ReserveEntity> selectReserveDate(int no) {
+		return reserveRepository.selectReserveDate(no);
+	}
 
 
 	/*
@@ -99,7 +104,7 @@ public class ReserveServiceImpl implements ReserveService {
 	 */
 
     // 전체 예약 리스트
-	@Override
+/*	@Override
 	public List<ReserveDto> selectReserve() {
 		List<ReserveEntity> reserveEntities = reserveRepository.findAll();
 		List<ReserveDto> reserveDtoList = new ArrayList<>();
@@ -112,7 +117,7 @@ public class ReserveServiceImpl implements ReserveService {
 		
 		return reserveDtoList;
 	}
-	
+*/	
     
 	private ReserveDto convertEntityToDto(ReserveEntity reserve) {
 		RoomInfoEntity roomInfo = new RoomInfoEntity(); 
@@ -135,6 +140,11 @@ public class ReserveServiceImpl implements ReserveService {
 				.build();	
         		
     }
+
+
+
+	
+
 
 
 

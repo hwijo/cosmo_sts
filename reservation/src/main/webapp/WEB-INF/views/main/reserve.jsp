@@ -46,13 +46,14 @@
 
 <div class="work-area">	
 
-	<div class="container" style="padding : 80px;" align="center">
+	<div class="container" style="padding : 100px;" align="center">
 	    <h2>予約</h2>	    
 	</div>  
 	
-	<c:forEach var="date" items="${date}">
-	    <p id="date">${date.startDate}</p>	
-	</c:forEach>
+<%-- 	<c:forEach var="date" items="${date}">
+	    <p id="date">${date.startDate}</p>
+	    <p id="date">${date.endDate}</p>		
+	</c:forEach> --%>
 	
 
   			<div class="container"> 
@@ -112,9 +113,9 @@
 						</div>
 						
 						<div>
-						    <p>은행<input type="text" name="bankName"></p>
-						    <p>전화번호<input type="text" name="phone"></p>
-						    <p>금액<input type="text" name="totalcost"></p>						
+						    <p>銀行<input type="text" name="bankName"></p>
+						    <p>連絡先<input type="text" name="phone"></p>
+						    <!-- <p><input type="text" name="totalcost"></p> -->						
 						</div>
 						
 						
@@ -137,7 +138,6 @@
 <script type="text/javascript">
 
 $(function() {
-
 	
     $("#datepicker1").datepicker({
         dateFormat: 'yy-mm-dd',
@@ -151,25 +151,88 @@ $(function() {
         dateFormat: 'yy-mm-dd',
         minDate: 0,
         showOn:"both",
-        buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif"                       
+        buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif"  
         
     });
+
+/*     var startDate;
+    var endDate;
+
+    <c:forEach items="${date}" var="date" varStatus="status">
+        //console.log(${status.count}) // 1번만 돔                
+        startDate = "${date.startDate}"; // 위에 list나 변수를 선언하고 차례대로 값을 받는다.
+        endDate = "${date.endDate}";
+        var re = [];
+        re.push(startDate);
+        re.push(endDate);
+        console.log(startDate)
+        console.log(endDate)
+        console.log(re)        
+    </c:forEach> */ 
+    
         
     function my_check(in_date) {
-        in_date = in_date.getFullYear() + '-'
-        + (in_date.getMonth() + 1) + '-' + in_date.getDate();
-        console.log(in_date)
+        var startDate;
+        var endDate;
+        var re = [];
+        var re1 = [];
+        var re2 = [];
+
+        <c:forEach items="${date}" var="date" varStatus="status"> 
+       
+            //console.log(${status.count})             
+            startDate = "${date.startDate}"; // 위에 list나 변수를 선언하고 차례대로 값을 받는다.
+            endDate = "${date.endDate}";                       
+            re.push(startDate);
+            re.push(endDate);
+            re1.push(startDate); 
+            re2.push(endDate); 
+                 
+        </c:forEach> 
+
+
+                
+    	in_date = in_date.getFullYear() + '-'
+        + (in_date.getMonth() + 1).toString().padStart(2,'0') + '-' + in_date.getDate().toString().padStart(2,'0'); // padStart : 자리 수를 설정하고 남는 공간에 다른 문자열을 채울수 있게 하는 메서드 
+        //console.log(in_date)          
         
-        var my_array = new Array('2022-1-30', '2022-1-31'); // 막을 날짜 담기
-        //$('#d1').append(in_date+'<br>')
-        if (my_array.indexOf(in_date) >= 0) { // 찾는 문자열이 없으면 -1 리턴
-            return [false, "notav", 'Not Available'];
-        } else {
-            return [true, "av", "available"];
-        }
+        //console.log(re1.length)
+        
+        var result = [];
+        
+        for(var i=0; i<re1.length; i++) {
+        	//console.log(re1)
+            //console.log(re2)
+	        var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+	        //console.log(regex.test(re1[i]))
+	        if(!(regex.test(re1[i]) && regex.test(re2[i]))) // regex가 false일경우
+	            return "Not Date Format";
+	        
+	        var curDate = new Date(re1[i]);
+	        while(curDate <= new Date(re2[i])) {
+	        	result.push(curDate.toISOString().split("T")[0]); // startDate, endDate 사이의 날짜를 result 배열에 담음
+	        	curDate.setDate(curDate.getDate() + 1);
+	        }
+	       
+        }   
+        
+        console.log(result)
+        
+	        //var my_array = new Array('2022-02-15', '2022-02-16', '2022-02-20'); // 막을 날짜 담기
+	        //$('#d1').append(in_date+'<br>')
+	        //console.log(my_array)
+	        if (result.indexOf(in_date) >= 0) { // 찾는 문자열이 없으면 -1 리턴
+	            return [false, "notav", 'Not Available'];
+	        } else {
+	            return [true, "av", "available"];
+	        }
+        
+        
+
+
     }
     
-    
+   
     $('#datepicker1').datepicker();
     $('#datepicker1').datepicker("option", "maxDate", $("#datepicker2").val());
     $('#datepicker1').datepicker("option", "onClose", function ( selectedDate ) {

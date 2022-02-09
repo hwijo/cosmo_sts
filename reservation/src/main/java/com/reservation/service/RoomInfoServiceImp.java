@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.reservation.dto.ReserveDto;
 import com.reservation.dto.RoomInfoDto;
+import com.reservation.entity.NoticeEntity;
 import com.reservation.entity.ReserveEntity;
 import com.reservation.entity.RoomInfoEntity;
 import com.reservation.repository.RoomInfoRepository;
@@ -80,6 +81,15 @@ public class RoomInfoServiceImp implements RoomInfoService {
 		 */
 	}
 	
+	// 방 등록
+	@Override
+	public RoomInfoEntity insertRoom(RoomInfoDto dto) {
+		RoomInfoEntity entity = new RoomInfoEntity();
+		ModelMapper modelMapper = new ModelMapper();
+		entity = modelMapper.map(dto, RoomInfoEntity.class);
+		return roomInfoRepository.save(entity);
+	}
+	
 	
 	private RoomInfoDto convertEntityToDto(RoomInfoEntity roomInfo) {
         return RoomInfoDto.builder()
@@ -99,6 +109,8 @@ public class RoomInfoServiceImp implements RoomInfoService {
 				.build();	
         		
     }
+
+
 
 
 

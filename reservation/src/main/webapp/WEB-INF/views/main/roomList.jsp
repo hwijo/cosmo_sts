@@ -12,27 +12,28 @@
 <html>
 <head>
 	<title>home</title>
+	
+
+
 </head>
 <body>
 
 <div class="work-area">
-	<div class="container" style="padding : 50px;"align="center">
+	<div class="container" style="padding : 70px;"align="center">
 	    <h2>部屋</h2>
+	    <button	onclick = "location.href='/calendar' "class="btn btn-primary" >全体予約確認</button>
 	</div>	
+
 	
 <div class="container" > 	
-    <div class="card mb-4 shadow-sm">
-	    <div class="card-header" style="text-align:center;">
-	        <h4 class="my-0 font-weight-normal">部屋</h4>
-	    </div>
+    <div class="card mb-4 shadow-sm">        
 	      			<div class="card-body" style="text-align:center;">
 	        			<ul class="list-unstyled mt-3 mb-4">
 	        				<li class="mb-2">
 	        					<strong id="start"></strong>
 	        				</li>
 	        					<c:forEach var="room" items="${room}">
-	        						<li>
-	        						    <p>${room.no}</p>
+	        						<li>	        						    
 	        						    <a href="/reserve?no=${room.no}">
 	          							<img src="/resources/roomimages/${room.images}" width="200px" height="200px"/>
 	          						    </a>
@@ -41,7 +42,8 @@
 	          						</li>           						
 	          						<li>
 	          						    <p>${room.explnation}</p>
-	          						</li>   						
+	          						</li>	          						   
+  						
 
 	          					</c:forEach>
 	          						

@@ -22,6 +22,7 @@ public class ConsultationDto {
 	private Date createdAt;
 	private Date updatedAt;
 	private int buildCd;
+	
 
 	
 	

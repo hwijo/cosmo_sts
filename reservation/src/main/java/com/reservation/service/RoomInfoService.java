@@ -14,4 +14,6 @@ public interface RoomInfoService {
 	public RoomInfoEntity selectRoomById(int no);
 	
 	public List<RoomInfoDto> selectRoom(String startDate, String endDate);
+
+	public RoomInfoEntity insertRoom(RoomInfoDto dto);
 }

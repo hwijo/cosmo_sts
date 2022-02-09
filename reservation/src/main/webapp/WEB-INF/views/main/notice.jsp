@@ -11,7 +11,7 @@
 	crossorigin="anonymous">
 <html>
 <head>
-	<title>Home</title>
+
 </head>
 <body>
 
@@ -30,25 +30,9 @@
 					</div>
 					<div class="form-group">
 						<label>내용</label>
-						<textarea readonly class="form-control" rows="5">${sn.contents}</textarea>
+						<span>${sn.contents}</span>
 					</div>
-<%-- 
-					<fmt:formatDate value="${community.community_writeDate}"
-						pattern="yy-MM-dd" var="writeDate"></fmt:formatDate>
-					<div class="form-group">
-						<label>등록시간</label> <input readonly class="form-control"
-							value="${writeDate}">
- --%>
-<%-- 					</div>
-					<div class="form-group">
-						<button onclick="remove(${community.community_registerNo})"
-							class="btn btn-primary" style="float:right">삭제</button>
-						<button
-							onclick="location.href='update?id=${community.community_registerNo}'"
-							onclick="update(${community.community_registerNo})"
-							class="btn btn-primary" style="float:right">수정</button>
-					</div>
- --%>
+
 				</div>
 			</div>
 

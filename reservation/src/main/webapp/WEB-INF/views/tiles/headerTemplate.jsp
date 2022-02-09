@@ -16,14 +16,16 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="/">ようこそ!</a>
+			<a class="navbar-brand" href="/">OXペンションへようこそ!</a>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="/">HOME
 					</a></li>				
-					<li class="nav-item active"><a class="nav-link"	href="/consultation">相談
+					<li class="nav-item active"><a class="nav-link"	href="/consultationList">相談
 					</a></li>
 					<li class="nav-item active"><a class="nav-link"	href="/roomList">部屋
+					</a></li>
+					<li class="nav-item active"><a class="nav-link"	href="/admin">ADMIN
 					</a></li>
 				</ul>
 			</div>

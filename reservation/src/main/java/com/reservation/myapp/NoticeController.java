@@ -66,23 +66,23 @@ public class NoticeController {
 		
 	}
 	
-	// 메인(슬라이드, 공지사항 리스트) admin
-	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-	public String noticeListAdmin(Locale locale, Model model) {
+	// admin 메인
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String noticeListAdmin(Model model) {
 		
-		List<SliderimagesEntity> list = sliderimagesRepository.findAll();
+		//List<SliderimagesEntity> list = sliderimagesRepository.findAll();
 		// sort는 select할때 해주자
 		
-		model.addAttribute("images", list);		
+		//model.addAttribute("images", list);		
 	
 		
-		List<NoticeEntity> notice = noticeService.selectNotice();
-		System.out.println("log : " + notice);
+		//List<NoticeEntity> notice = noticeService.selectNotice();
+		//System.out.println("log : " + notice);
 		
-		model.addAttribute("notice", notice);		
+		//model.addAttribute("notice", notice);		
 		
 		
-		return "admin/home";	
+		return "admin/admin";	
 		
 	}
 	

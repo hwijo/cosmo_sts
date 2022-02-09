@@ -27,6 +27,16 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
+<style>
+
+    img { 
+    <!-- 이미지 가운데 정렬 -->
+        display : block;
+        margin : auto;
+        }
+
+</style>
+
 </head>
 
 
@@ -36,14 +46,16 @@
 
 	<div class="work-area">
 
-		<div class="container" style="padding: 50px;" align="center"></div>
+		<div class="container" style="padding:40px;"></div>
 
 		<!-- 슬라이드 -->
 		<div id="bxslider" class="designer_area">
 			<c:forEach var="rlt" items="${images}">
 				<ul>
-					<li style="float: center;"><img
-						src="/resources/${rlt.filename}" width="100%" height="400px" /></li>
+					<li>
+					<img src="/resources/${rlt.filename}" width="1100px" height="600px"/>
+					</li>
+				    
 				</ul>
 			</c:forEach>
 		</div>
@@ -51,27 +63,27 @@
 	</div>
 
 	<!-- 날짜, 방 중복 검색 -->
-	<div style="margin: 0 auto;" align="center">
+<%-- 	<div style="margin: 0 auto;" align="center">
 		<input type="text" id="datepicker1" name="startDate"> ~ 
 		<input type="text" id="datepicker2" name="endDate"> 
-<%-- 		<select	name="adult" style="text-align-last: center;">
+		<select	name="adult" style="text-align-last: center;">
 			<option value="">部屋</option>
 			<c:forEach var="roomInfo" items="${roomInfo}">
 				<option><c:out value="${roomInfo.roomTitle}" /></option>
 			</c:forEach>
-		</select> --%>
-		<%-- <button type="button" class="btn btn-primary" 
-			onclick="location.href='/reserve?startDate=${startDate}&endDate=${endDate}'">検索</button> --%>
+		</select>
+		<button type="button" class="btn btn-primary" 
+			onclick="location.href='/reserve?startDate=${startDate}&endDate=${endDate}'">検索</button>
 
 	    <a href="/canReserveList" id="search">	       
 	    <button class="btn btn-sm btn-primary" name="search" id="search">検索</button></a>
 
-	</div>
+	</div> --%>
 
 
 	<div>
 		<!-- 공지사항 -->
-		<div style="padding: 100px;">
+		<div style="padding: 40px;">
 			<div class="container" style="padding: 30px;" align="center">
 				<h2>お知らせ</h2>
 			</div>
@@ -110,7 +122,7 @@
 						mode : 'fade',
 						//autoControls : true, // 시작, 정지버튼 노출
 						pager : true, // 블릿 버튼
-					//slideWidth: 800, // 가로 크기
+					    //slideWidth: 8000, // 가로 크기
 					});
 
 					$("#datepicker1").datepicker({

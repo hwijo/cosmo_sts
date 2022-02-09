@@ -23,17 +23,25 @@
 <div class="work-area">	
 <div class="container">
 　　　　   <div align="center">
-          <h2>お知らせ登録</h2>
+          <h2>相談登録</h2>
       </div>
      
- 	  <form id="insertForm" role="form" name="insert" action="/admin/insertNotice" method="post">
+ 	  <form id="insertForm" role="form" name="insert" action="/insertConsultation" method="post">
           <br style="clear: both">
+
+          <div class="form-group">
+		      <input type="text" class="form-control" id="name" name="name" placeholder="名前" style="width:300px" required >
+		  </div>
 		  <div class="form-group">
-		  <input type="text" class="form-control" id="title" name="title" placeholder="タイトル" required>
+		      <input type="text" class="form-control" id="passwd" name="passwd" placeholder="暗証番号" style="width:300px" required>
+		  </div>
+		  <div class="form-group">
+		      <input type="text" class="form-control" id="title" name="title" placeholder="タイトル" style="width:500px" required>
 		  </div>
 		  <div class="form-group">
 			  <textarea class="form-control" id="summernote" name="contents" placeholder="contents" maxlength="140" rows="7"></textarea>
 		  </div>
+
 		  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">登録</button>
 	  </form>	 
 </div> 

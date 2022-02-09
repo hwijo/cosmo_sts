@@ -28,8 +28,8 @@ public class ConsultationController {
 	ConsultationService consultationService;
 	
 	
-	// 상담 페이지
-	@RequestMapping(value = "/consultation", method = RequestMethod.GET)
+	// 상담 리스트
+	@RequestMapping(value = "/consultationList", method = RequestMethod.GET)
 	public String consultationPage(Model model) {
 		
 		List<ConsultationEntity> list = consultationService.selectConsultation();
@@ -37,12 +37,12 @@ public class ConsultationController {
 		model.addAttribute("list", list);
 		
 		
-		return "main/consultation";	
+		return "main/consultationList";	
 		
 	}
 	
-	// 상담 페이지
-	@RequestMapping(value = "/admin/consultation", method = RequestMethod.GET)
+	// 상담 리스트(관리자)
+	@RequestMapping(value = "/admin/consultationList", method = RequestMethod.GET)
 	public String consultationPageAdmin(Model model) {
 		
 		List<ConsultationEntity> list = consultationService.selectConsultation();
@@ -50,7 +50,62 @@ public class ConsultationController {
 		model.addAttribute("list", list);
 		
 		
-		return "admin/consultation";	
+		return "admin/consultationList";	
+		
+	}
+	
+	// 상담 상세보기
+	@RequestMapping(value = "/consultation", method = RequestMethod.GET)
+	public String consultation(Model model, int no) {
+		
+		ConsultationEntity consul = consultationService.selectByNo(no);
+		
+		model.addAttribute("consul", consul);		
+		
+		return "main/consultation";	
+		
+	}
+	
+	// 상담 작성 페이지 들어가기
+	@RequestMapping(value = "/insertConsultation", method = RequestMethod.GET)
+	public String inInsertConsultation(Model model, HttpServletRequest request) {
+						
+		return "main/insertConsultation";	
+		
+	}
+	
+	// 상담 작성
+	@RequestMapping(value = "/insertConsultation", method = RequestMethod.POST)
+	public String insertConsultation(Model model, HttpServletRequest request) {
+				
+        ConsultationDto dto = new ConsultationDto();
+		
+	    //int grno = Integer.parseInt(request.getParameter("grno"));
+	    String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		String name = request.getParameter("name");
+		String passwd = request.getParameter("passwd");
+		
+		//dto.setGrno(grno);
+		dto.setTitle(title);
+		dto.setContents(contents);
+		dto.setName(name);
+		dto.setPasswd(passwd);		
+		
+		dto.setGrgrod(0);
+		dto.setDepth(0);
+		
+		dto.setLockFlg("0");
+		dto.setDeleteFlg("0");
+		//dto.setBuildCd(2);	
+		
+		consultationService.insertReply(dto);
+		
+		//int grno = entity.getGrno();
+		//System.out.println(grno);				 
+		
+				
+		return "redirect:/consultationList";		
 		
 	}
 	
@@ -83,22 +138,43 @@ public class ConsultationController {
 		String name = request.getParameter("name");
 		String passwd = request.getParameter("passwd");
 		
-		dto.setGrno(grno);
-		dto.setGrgrod(grgrod+1);
-		dto.setDepth(depth+1);
-		dto.setTitle(title);
-		dto.setContents(contents);
-		dto.setName(name);
-		dto.setPasswd(passwd);
+		System.out.println(depth);
 		
-		dto.setLockFlg("0");
-		dto.setDeleteFlg("0");
-		//dto.setBuildCd(2);	
+		if(depth == 1) { // 추가 답글을 달때
+			dto.setGrno(grno);
+			dto.setGrgrod(grgrod+1);
+			dto.setDepth(depth);
+			dto.setTitle(title);
+			dto.setContents(contents);
+			dto.setName(name);
+			dto.setPasswd(passwd);
+			
+			dto.setLockFlg("0");
+			dto.setDeleteFlg("0");
+			//dto.setBuildCd(2);
+			
+		}
+		else {
+			 // 원글에 답글 OR 답글에 답글을 달때
+			dto.setGrno(grno);
+			dto.setGrgrod(grgrod+1);
+			dto.setDepth(depth+1);
+			dto.setTitle(title);
+			dto.setContents(contents);
+			dto.setName(name);
+			dto.setPasswd(passwd);
+			
+			dto.setLockFlg("0");
+			dto.setDeleteFlg("0");
+			//dto.setBuildCd(2);	
+			
+      
+		}
 		
 		consultationService.insertReply(dto);
 		
 				
-		return "redirect:/admin/consultation";	
+		return "redirect:/admin/consultationList";	
 		
 	}
 	
