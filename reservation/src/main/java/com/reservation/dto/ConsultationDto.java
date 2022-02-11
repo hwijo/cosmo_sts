@@ -3,11 +3,15 @@ package com.reservation.dto;
 
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@Builder
 public class ConsultationDto {	
+	
 	private int no;
 		
 	private int grno;

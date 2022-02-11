@@ -27,7 +27,11 @@ public class QNoticeEntity extends EntityPathBase<NoticeEntity> {
 
     public final StringPath deleteFlg = createString("deleteFlg");
 
+    public final StringPath lockFlg = createString("lockFlg");
+
     public final NumberPath<Integer> no = createNumber("no", Integer.class);
+
+    public final StringPath passwd = createString("passwd");
 
     public final StringPath title = createString("title");
 

@@ -16,16 +16,23 @@
 <body>
 
 <div class="work-area">
+<div class="container">
 		<div class="row" style="padding : 70px;">
 			<div class="col-lg-12">
 				<div class="panel-body"
 					style="display: flex; flex-direction: column;">
 					<div class="form-group">
-						<label>タイトル</label> <input readonly class="form-control"
-							value="${consul.title}">
+						<!-- <label>タイトル</label>  -->
+						<input readonly class="form-control"
+							value="${consul.name}">
 					</div>
 					<div class="form-group">
-						<label>내용</label>
+						<!-- <label>タイトル</label>  -->
+						<input readonly class="form-control"
+							value="${consul.title}">
+					</div>					
+					<div class="form-group">
+						<!-- <label>내용</label> -->
 						<span>${consul.contents}</span>
 					</div>
 					
@@ -34,7 +41,7 @@
 			</div>
 
 		</div>
-
+</div>
 </div>
 
 <%-- <P>  The time on the server is ${serverTime}. </P> --%>

@@ -2,22 +2,19 @@ package com.reservation.service;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityListeners;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.reservation.dto.NoticeDto;
 import com.reservation.dto.ReserveDto;
-import com.reservation.dto.RoomInfoDto;
-import com.reservation.dto.ReserveDto.ReserveDtoBuilder;
-import com.reservation.entity.NoticeEntity;
 import com.reservation.entity.ReserveEntity;
 import com.reservation.entity.RoomInfoEntity;
-import com.reservation.repository.NoticeRepository;
 import com.reservation.repository.ReserveRepository;
 
 
@@ -140,6 +137,24 @@ public class ReserveServiceImpl implements ReserveService {
 				.build();	
         		
     }
+
+
+	@Override
+	public ReserveDto updateReserve(ReserveDto dto) {
+		ReserveEntity entity = reserveRepository.findById(dto.getNo()).get();
+			
+		if(dto.getAdult() != null)
+			entity.setAdult(dto.getAdult());
+		if(dto.getDeleteFlg() != null)
+			entity.setDeleteFlg(dto.getDeleteFlg());
+		
+		reserveRepository.save(entity);
+		
+		return dtoToEntity(entity);
+	}
+
+
+	
 
 
 

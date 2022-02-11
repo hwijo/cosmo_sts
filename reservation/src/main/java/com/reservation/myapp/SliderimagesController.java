@@ -78,7 +78,7 @@ public class SliderimagesController {
 		
 		System.out.println("�̹��� ���� �Ϸ�");
 		
-		return "redirect:/admin/home";
+		return "redirect:/";
 		
 		
 	}	

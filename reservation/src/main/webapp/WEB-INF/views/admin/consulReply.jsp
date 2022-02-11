@@ -38,8 +38,10 @@
           
           <div>
           <input type="hidden" value="${e.grno}" id="grno" name="grno">
-          <input type="hidden" value="${e.grgrod}" id="grno" name="grgrod">
-          <input type="hidden" value="${e.depth}" id="grno" name="depth">
+          <input type="hidden" value="${e.grgrod+1}" id="grgrod" name="grgrod">
+          <input type="hidden" value="${e.depth+1}" id="depth" name="depth">
+          <input type="hidden" value="0" id="lockFlg" name="lockFlg">
+          <input type="hidden" value="0" id="deleteFlg" name="deleteFlg">
 		  </div>	 
 	      
 	      
@@ -50,7 +52,7 @@
 		      <input type="text" class="form-control" id="passwd" name="passwd" placeholder="暗証番号" style="width:300px" required>
 		  </div>
 		  <div class="form-group">
-		      <input type="text" class="form-control" value="RE:${e.title}" id="title" name="title" placeholder="タイトル" style="width:500px" required>
+		      <input type="text" class="form-control" value="${e.title}" id="title" name="title" placeholder="タイトル" style="width:500px" required>
 		  </div>
 		  <div class="form-group">
 			  <textarea class="form-control" id="summernote" name="contents" placeholder="contents" maxlength="140" rows="7"></textarea>

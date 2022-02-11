@@ -17,8 +17,7 @@ import com.reservation.entity.ReserveEntity;
 import com.reservation.entity.RoomInfoEntity;
 
 
-@Repository
-public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
+public interface ReserveRepository extends JpaRepository<ReserveEntity, Integer> {
 	
 	
 	@Transactional 
@@ -43,8 +42,14 @@ public interface ReserveRepository extends JpaRepository<ReserveEntity, Long> {
 	@Modifying
 	@Query("select r.startDate, r.endDate, room.roomTitle, room.colorCd from ReserveEntity r join RoomInfoEntity room on r.roomNum = room.no")
 	List<Object[]> selectReserve();
-    // 쿼리에는 테이블명, 컬럼명이 아닌 entity 참고해서 작성할 것
 	
+	
+	// 예약 확인해주는 쿼리(paymentFlg 변경)
+	@Transactional 
+	@Modifying
+	@Query("UPDATE ReserveEntity r SET r.paymentFlg = 1 WHERE r.no = :no")
+	public int updateFlg(@Param("no")int no);
+
 
    
 }

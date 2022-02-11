@@ -3,18 +3,15 @@ package com.reservation.service;
 
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Optional;
 import com.reservation.dto.ConsultationDto;
-import com.reservation.dto.ReserveDto;
 import com.reservation.entity.ConsultationEntity;
-import com.reservation.entity.ReserveEntity;
-import com.reservation.entity.RoomInfoEntity;
 import com.reservation.repository.ConsultationRepository;
 
 
@@ -30,9 +27,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
 	@Override
 	public ConsultationEntity insertConsultation(ConsultationDto consultationDto) {
-		ConsultationEntity consultationEntity = new ConsultationEntity();
-		ModelMapper modelMapper = new ModelMapper();
-		consultationEntity = modelMapper.map(consultationDto, ConsultationEntity.class);
+		ConsultationEntity consultationEntity = dtoToEntity(consultationDto);
 		return consultationRepository.save(consultationEntity);
 	}
 
@@ -43,32 +38,63 @@ public class ConsultationServiceImpl implements ConsultationService {
 		return consultationRepository.findByNo(no);
 	}
 
-    // 상담 등록
+    // 상담, 답글 등록
+	@Transactional
 	@Override
 	public int insertReply(ConsultationDto consultationDto) {
-		ConsultationEntity consultationEntity = new ConsultationEntity();
-		ModelMapper modelMapper = new ModelMapper();
-		consultationEntity = modelMapper.map(consultationDto, ConsultationEntity.class);
-		ConsultationEntity entity = consultationRepository.save(consultationEntity);
+		ConsultationEntity consultationEntity = dtoToEntity(consultationDto);
+		System.out.println("insertReply: "+consultationDto);
+		if(0 == consultationDto.getGrno()) { // 원글
+			Function<ConsultationEntity, ConsultationDto> fn = (entity -> entityToDTO(entity));
+			
+			ConsultationEntity entity = consultationRepository.save(consultationEntity);
+			System.out.println(entity);
+			
+			int grno = entity.getNo();
+			
+			System.out.println(grno);
+			
+			return consultationRepository.updateReply(grno);
+		} else { // 답글
+			consultationRepository.updateReplyGrgrod(consultationDto.getGrgrod());
+			System.out.println("insertReplyEntity: "+consultationEntity.toString());
+			ConsultationEntity entity = consultationRepository.save(consultationEntity);
+			return entity.getNo(); 
+		}
 		
-		System.out.println(entity);
 		
-		int grno = entity.getNo();
 		
-		System.out.println(grno);
-		
-		return consultationRepository.updateReply(grno);
 		 
 	}
 
 
-
-
 	// 원글, 답글, 답글의 답글 등 순서대로 출력
 	@Override
-	public List<ConsultationEntity> selectConsultation() {
-		return consultationRepository.selectConsultationList();
+	public List<ConsultationDto> selectConsultation() {
+		Function<ConsultationEntity, ConsultationDto> fn = (entity -> entityToDTO(entity));
+		List<ConsultationEntity> entity = consultationRepository.selectConsultationList();
+		List<ConsultationDto> result = entity.stream().map(fn).collect(Collectors.toList());
+		return result;
 	}
+	
+	/*
+	 * @Override public int selectConsultationListGrno(int grno) {
+	 * List<ConsultationEntity> list =
+	 * consultationRepository.selectConsultationListGrno(grno); int maxGrgrod = 0;
+	 * for(int i=0;i<list.size();i++) { if(list.get(i).getGrgrod() ==
+	 * consultationRepository.selectMaxGrno(grno)) { maxGrgrod =
+	 * list.get(i).getGrgrod();
+	 * 
+	 * }
+	 * 
+	 * } return maxGrgrod;
+	 * 
+	 * 
+	 * }
+	 * 
+	 */
+	
+	
 
 /*	
 	@Override
@@ -125,7 +151,6 @@ public class ConsultationServiceImpl implements ConsultationService {
 				.build();	
         		
     }
-
 
 
 

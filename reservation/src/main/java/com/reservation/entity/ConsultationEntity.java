@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
         allocationSize=1 //�޸𸮸� ���� �Ҵ��� ���� ������
         )
 @Table(name="consultation")
+@Builder
 public class ConsultationEntity {
 
 	@Id // primary key

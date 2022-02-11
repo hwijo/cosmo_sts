@@ -16,20 +16,22 @@
 <body>
 
 <div class="work-area">
+<div class="container">
 		<div class="row" style="padding : 70px;">
 			<div class="col-lg-12">
 				<div class="panel-body"
 					style="display: flex; flex-direction: column;">
-					<div class="form-group">
+					<%-- <div class="form-group">
 						<label>등록번호</label> <input readonly class="form-control"
 							value="${sn.no}">
-					</div>
+					</div> --%>
 					<div class="form-group">
-						<label>제목</label> <input readonly class="form-control"
+						<!-- <label>タイトル</label>  -->
+						<input readonly class="form-control"
 							value="${sn.title}">
 					</div>
 					<div class="form-group">
-						<label>내용</label>
+						<!-- <label>내용</label> -->
 						<span>${sn.contents}</span>
 					</div>
 
@@ -37,7 +39,7 @@
 			</div>
 
 		</div>
-
+</div>
 </div>
 
 <%-- <P>  The time on the server is ${serverTime}. </P> --%>

@@ -14,7 +14,9 @@ public class NoticeDto {
 	private String deleteFlg;
 	private Date createdAt;	
 	private Date updatedAt;	
-	private int buildCd;	
+	private int buildCd;
+	private String lockFlg;
+	private String passwd;
 
 	
 	

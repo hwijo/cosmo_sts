@@ -42,9 +42,10 @@
 	          						</li>           						
 	          						<li>
 	          						    <p>${room.explnation}</p>
-	          						</li>	          						   
-  						
-
+	          						    <p>大人 ${room.adultCost}円　　小人 ${room.childCost}円</p>
+	          						    <hr>
+	          						</li>	          						          						   
+  						　　　　　　　　　
 	          					</c:forEach>
 	          						
 

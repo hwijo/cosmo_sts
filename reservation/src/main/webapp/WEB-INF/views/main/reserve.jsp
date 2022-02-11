@@ -57,7 +57,6 @@
 	
 
   			<div class="container"> 
-<%--             <c:if test="${not empty reserveinfo.startDate}"> --%>
 				<form method="post" action="/reserve" id="insertForm" name="reserve">
 	  				<div class="card-deck mb-3 text-center">
 	    				<div class="card mb-4 shadow-sm">
@@ -80,19 +79,27 @@
 	          						</li>	          						
 	          						<li>
 	          						<input type="hidden" value="${room.no}" name="no">
-	          						<select name="adult" style="text-align-last: center;">
-	        						<option value="">大人</option>	
+	          						
+	          						<select id="adult" name="adult" style="text-align-last: center;">
+	        						<option value="0">大人</option>	
 	        							<c:forEach var="i" begin="1" end="${room.max}">	
 	        							    <option><c:out value="${i}"/></option>		
 										</c:forEach>				   	
 								    </select>
-								    <select name="child" style="text-align-last: center;">
-									<option value="">子供</option>
+								    <select id="child" name="child" style="text-align-last: center;">
+									<option value="0">子供</option>
 									    <c:forEach var="i" begin="1" end="${room.max}">	
 	        							    <option><c:out value="${i}"/></option>		
 										</c:forEach>								
 								    </select>
                                     </li>
+                                    
+                                    <li>
+                                                                                
+                                        <span id="adultCost" name="adultCost"></span>円     
+                                        <span id="childCost" name="childCost"></span>円                                     
+                                    </li>                             
+                                    
 	          						
 	          						
 
@@ -113,29 +120,110 @@
 						</div>
 						
 						<div>
-						    <p>銀行<input type="text" name="bankName"></p>
-						    <p>連絡先<input type="text" name="phone"></p>
-						    <!-- <p><input type="text" name="totalcost"></p> -->						
+						    <p><input type="text" id="name" name="name" style="width:100px" placeholder="名前"></p>
+						    <p>銀行
+						    <select id="bankName" name="bankName" style="text-align-last: center;">
+								<option value="">銀行</option>
+								<option value="韓国">韓国</option>
+								<option value="日銀">日銀</option>
+								<option value="三菱">三菱</option>					
+						    </select>
+						    </p>
+						    <p><input type="text" id="phone" name="phone" style="width:100px" placeholder="連絡先"></p>						
 						</div>
 						
-						
+						<div>
+						    <p><input type="text" id="totalCost" name="totalCost" style="width:100px" placeholder="総金額">円</p>						
+						</div>				
 						
 	
 
 						<div class="d-grid gap-2 col-6 mx-auto">
-					        <button type="submit" class="btn btn-primary float-right">予約</button>
+					        <button type="button" class="btn btn-primary float-right" onclick="checkNull(${room.no})">予約</button>
 				        </div>		
 	      					
 
 	    				</div>		
 					</div>
 				</form>    				
-<%-- 				</c:if> --%>
+
 				
 
 
 
 <script type="text/javascript">
+
+// null 체크
+function checkNull(no) {
+	if($("#datepicker1").val().trim() == ""){		
+        alert("入室日を入力してください。");
+        $("#datepicker1").focus();
+        return false;
+    }
+	
+	else if($("#datepicker2").val().trim() == ""){		
+        alert("退室日を入力してください。");
+        $("#datepicker2").focus();
+        return false;
+    }
+
+	else if($("#name").val().trim() == ""){		
+        alert("名前を入力してください。");
+        $("#name").focus();
+        return false;
+    }
+
+	else if($("#bankName").val().trim() == ""){		
+        alert("銀行を入力してください。");
+        $("#bankName").focus();
+        return false;
+    }
+
+	else if($("#phone").val().trim() == ""){		
+        alert("連絡先を入力してください。");
+        $("#phone").focus();
+        return false;
+    }
+
+	else if($("#totalCost").val().trim() == ""){		
+        alert("総金額を入力してください。");
+        $("#totalCost").focus();
+        return false;
+    }
+	
+	else {
+		document.getElementById("insertForm").submit();
+	}
+	
+}
+
+
+// 금액 계산
+var adult = 0; // 대인 가격
+var child = 0; // 소인 가격
+var sum = 0;
+
+$("#adult").change(function() {
+	$("#adultCost").empty();
+	$("#adultCost").append("${room.adultCost}"*$(this).val());
+
+	adult = "${room.adultCost}"*$(this).val();
+
+	$("#totalCost").empty();
+	$("#totalCost").val(adult + child); 
+	
+});
+ 
+$("#child").change(function() {
+	$("#childCost").empty();
+	$("#childCost").append("${room.childCost}"*$(this).val());
+
+    child = "${room.childCost}"*$(this).val();
+
+	$("#totalCost").empty();
+	$("#totalCost").val(adult + child);
+
+});
 
 $(function() {
 	
@@ -246,6 +334,13 @@ $(function() {
     });
     
 });
+// function end
+ 
+
+
+
+
+
 
 
 

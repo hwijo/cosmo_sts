@@ -1,6 +1,8 @@
 package com.reservation.myapp;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +34,7 @@ public class ConsultationController {
 	@RequestMapping(value = "/consultationList", method = RequestMethod.GET)
 	public String consultationPage(Model model) {
 		
-		List<ConsultationEntity> list = consultationService.selectConsultation();
+		List<ConsultationDto> list = consultationService.selectConsultation();
 		
 		model.addAttribute("list", list);
 		
@@ -45,10 +47,11 @@ public class ConsultationController {
 	@RequestMapping(value = "/admin/consultationList", method = RequestMethod.GET)
 	public String consultationPageAdmin(Model model) {
 		
-		List<ConsultationEntity> list = consultationService.selectConsultation();
+		List<ConsultationDto> list = consultationService.selectConsultation();
 		
 		model.addAttribute("list", list);
 		
+		System.out.println("상담 리스트 : " + list);
 		
 		return "admin/consultationList";	
 		
@@ -112,7 +115,6 @@ public class ConsultationController {
 	// 답글 쓰기 페이지 들어가기
 	@RequestMapping(value = "/admin/consulReply", method = RequestMethod.GET)
 	public String inConsulReply(Model model, HttpServletRequest request, int no) {
-		//System.out.println("시발" + no);
 		ConsultationEntity e = consultationService.selectByNo(no);
 		
 		System.out.println(e);
@@ -126,50 +128,9 @@ public class ConsultationController {
 	
 	// 답글 쓰기 
 	@RequestMapping(value = "/admin/consulReply", method = RequestMethod.POST)
-	public String consulReply(Model model, HttpServletRequest request) {
+	public String consulReply(ConsultationDto dto, Model model, HttpServletRequest request) {
 		
-		ConsultationDto dto = new ConsultationDto();
-		
-	    int grno = Integer.parseInt(request.getParameter("grno"));
-	    int grgrod = Integer.parseInt(request.getParameter("grgrod"));
-	    int depth = Integer.parseInt(request.getParameter("depth"));
-	    String title = request.getParameter("title");
-		String contents = request.getParameter("contents");
-		String name = request.getParameter("name");
-		String passwd = request.getParameter("passwd");
-		
-		System.out.println(depth);
-		
-		if(depth == 1) { // 추가 답글을 달때
-			dto.setGrno(grno);
-			dto.setGrgrod(grgrod+1);
-			dto.setDepth(depth);
-			dto.setTitle(title);
-			dto.setContents(contents);
-			dto.setName(name);
-			dto.setPasswd(passwd);
-			
-			dto.setLockFlg("0");
-			dto.setDeleteFlg("0");
-			//dto.setBuildCd(2);
-			
-		}
-		else {
-			 // 원글에 답글 OR 답글에 답글을 달때
-			dto.setGrno(grno);
-			dto.setGrgrod(grgrod+1);
-			dto.setDepth(depth+1);
-			dto.setTitle(title);
-			dto.setContents(contents);
-			dto.setName(name);
-			dto.setPasswd(passwd);
-			
-			dto.setLockFlg("0");
-			dto.setDeleteFlg("0");
-			//dto.setBuildCd(2);	
-			
-      
-		}
+		System.out.println("consulReply: " + dto.toString());
 		
 		consultationService.insertReply(dto);
 		

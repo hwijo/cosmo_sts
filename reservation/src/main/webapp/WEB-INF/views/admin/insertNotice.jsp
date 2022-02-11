@@ -25,23 +25,70 @@
 　　　　   <div align="center">
           <h2>お知らせ登録</h2>
       </div>
-     
+      <c:if test="${empty notice.no}">
  	  <form id="insertForm" role="form" name="insert" action="/admin/insertNotice" method="post">
           <br style="clear: both">
 		  <div class="form-group">
 		  <input type="text" class="form-control" id="title" name="title" placeholder="タイトル" required>
 		  </div>
 		  <div class="form-group">
+		  <input type="text" class="form-control" id="passwd" name="passwd" placeholder="パスワード" required>
+		  </div>
+		  <div class="form-group">
 			  <textarea class="form-control" id="summernote" name="contents" placeholder="contents" maxlength="140" rows="7"></textarea>
 		  </div>
-		  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">登録</button>
-	  </form>	 
+		  <button type="button" class="btn btn-primary pull-right" onclick="checkNull(${notice.no})">登録</button>
+	  </form>	
+	  </c:if> 
+	  <c:if test="${not empty notice.no}">
+ 	  <form id="insertForm" role="form" name="insert" action="/admin/insertNotice" method="post">
+          <br style="clear: both">
+		  <div class="form-group">
+		  <input type="text" class="form-control" id="title" name="title" value="${notice.title}" placeholder="タイトル" required>
+		  </div>
+		  <div class="form-group">
+		  <input type="text" class="form-control" id="passwd" name="passwd" value="${notice.passwd}" placeholder="パスワード" required>
+		  </div>
+		  <div class="form-group">
+			  <textarea class="form-control" id="summernote" name="contents" placeholder="contents" maxlength="140" rows="7">${notice.contents}</textarea>
+		  </div>
+		  <button type="button" class="btn btn-primary pull-right" onclick="checkNull(${notice.no})">登録</button>
+	  </form>	
+	  </c:if>
 </div> 
 
 </div>
 
 
 <script type="text/javascript">
+
+//null 체크
+function checkNull(no) {
+	if($("#title").val().trim() == ""){		
+        alert("タイトルを入力してください。");
+        $("#title").focus();
+        return false;
+    }
+	
+	else if($("#passwd").val().trim() == ""){		
+        alert("パスワードを入力してください。");
+        $("#passwd").focus();
+        return false;
+    }
+
+	else if($("textarea[name=contents]").val().trim() == ""){		
+        alert("内容を入力してください。");
+        $("#contents").focus();
+        return false;
+    }	
+	
+	else {
+		document.getElementById("insertForm").submit();
+	}
+	
+}
+
+// summernote
 $(document).ready(function() {
 	//여기 아래 부분
     $('#summernote').summernote({

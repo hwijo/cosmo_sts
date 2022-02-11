@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.reservation.dto.NoticeDto;
+import com.reservation.entity.ConsultationEntity;
 import com.reservation.entity.NoticeEntity;
 import com.reservation.entity.ReserveEntity;
 import com.reservation.entity.RoomInfoEntity;
@@ -86,6 +87,9 @@ public class NoticeController {
 		
 	}
 	
+	
+
+	
 	// 공지사항 상세보기
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String notice(Model model, HttpServletRequest request, int no) {
@@ -107,10 +111,21 @@ public class NoticeController {
 	public String inInsertNotice(Model model, HttpServletRequest request) {
 
 		return "admin/insertNotice";
+	
+
+	}
+	
+	// 공지사항 수정 페이지 들어가기
+	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.GET)
+	public String inUpdateNotice(Model model, HttpServletRequest request, int no) {
+
+		NoticeEntity notice = noticeService.selectByNo(no);	
+		model.addAttribute("notice", notice);		
+		return "admin/insertNotice";
 
 	}
 
-	// 공지사항 등록
+	// 공지사항 등록/수정
 	@RequestMapping(value = "/admin/insertNotice", method = RequestMethod.POST)
 	public String insertNotice(Model model, HttpServletRequest request) {
 
@@ -118,12 +133,18 @@ public class NoticeController {
 		//NoticeEntity e = new NoticeEntity();
 
 		String title = request.getParameter("title");
+		String passwd = request.getParameter("passwd");
 		String contents = request.getParameter("contents");
 
 	    dto.setTitle(title);
-		dto.setContents(contents);
+		dto.setPasswd(passwd);
+	    dto.setContents(contents);
+		
 	    dto.setDeleteFlg("0"); // 고정값
 		dto.setBuildCd(2); // 고정값
+		dto.setLockFlg("0"); // 고정값
+		
+		
 
 		System.out.println("notice 저장 코드 시작");
 		noticeService.insertNotice(dto);
@@ -133,5 +154,34 @@ public class NoticeController {
 
 	}
 	
+	// 공지사항 등록/수정
+	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.POST)
+	public String updateNotice(Model model, HttpServletRequest request) {
+
+		NoticeDto dto = new NoticeDto();
+		//NoticeEntity e = new NoticeEntity();
+
+		String title = request.getParameter("title");
+		String passwd = request.getParameter("passwd");
+		String contents = request.getParameter("contents");
+
+	    dto.setTitle(title);
+		dto.setPasswd(passwd);
+	    dto.setContents(contents);
+		
+	    dto.setDeleteFlg("0"); // 고정값
+		dto.setBuildCd(2); // 고정값
+		dto.setLockFlg("0"); // 고정값
+		
+		
+
+		System.out.println("notice 저장 코드 시작");
+		noticeService.insertNotice(dto);
+		System.out.println("notice 저장 코드 끝");
+
+		return "redirect:/";
+
+	}
 	
 }
+

@@ -51,6 +51,10 @@ public class NoticeEntity {
 	
 	private int buildCd;
 	
+	private String lockFlg;
+	
+	private String passwd;
+	
 	@Builder
 	public NoticeEntity(String title, String contents, int buildCd) {
 	        

@@ -17,7 +17,7 @@
 <body>
 
 <div class="work-area">	
-<div>
+<div class="container">
 		<!-- 상담 -->
     <div style="padding : 100px;">
 	   　　<div class="container" style="padding : 50px;" align="center">
@@ -31,34 +31,25 @@
 			</tr>
 		
 
-	    <c:forEach var="list" items="${list}">		
-        <!-- 답변글이 아닌 원글일 경우 -->
-	    <c:if test="${list.grgrod == 0}">
-	    <c:if test="${list.depth == 0}">
-			<tr>
-				<td class="text-left"><a href="consultation?no=${list.no}">${list.title}</a></td>
+	    <c:forEach var="list" items="${list}">	
+	        <tr>
+	        <td class="text-left">
+	        <c:forEach var="i" begin="0" end="${list.depth}">	
+	            &nbsp;&nbsp;&nbsp;
+	        </c:forEach>
+
+	    <c:if test="${list.grgrod > 0}">	
+	        <img src="https://previews.123rf.com/images/siamimages/siamimages1701/siamimages170102537/70663670-%EC%9E%90%EB%AC%BC%EC%87%A0-%EC%95%84%EC%9D%B4%EC%BD%98.jpg" style="width:20px; height:20px;">
+	    </c:if>
+	        <a href="/consultation?no=${list.no}">${list.title}</a>
+	        </td>
 				<fmt:formatDate value="${list.updatedAt}" pattern="yy-MM-dd"
 					var="rewritedAt"></fmt:formatDate>
 				<td class="text-center">${rewritedAt}</td>		
 				
 				<td class="text-right"><button onclick = "location.href='/admin/consulReply?no=${list.no}' "class="btn btn-primary" style="float:right">返信登録</button></td>		
-			</tr>
-		</c:if>	
-		</c:if>
-		<!-- 답글인 경우 -->
-	    <c:if test="${list.grgrod > 0}">
-	    <c:if test="${list.depth > 0}">
-			<tr>
-				<td class="text-left"><span style="color:red; font-style:italic;">&nbsp;RE:</span><a href="consultation?no=${list.no}">${list.title}</a></td>
-				<fmt:formatDate value="${list.updatedAt}" pattern="yy-MM-dd"
-					var="rewritedAt"></fmt:formatDate>
-				<td class="text-center">${rewritedAt}</td>	
-				
-				
-				<td class="text-right"><button onclick = "location.href='/admin/consulReply?no=${list.no}' "class="btn btn-primary" style="float:right">返信登録</button></td>
-			</tr>
-		</c:if>	
-		</c:if>				
+			</tr>	
+			
     	</c:forEach>
 	    </table>
 

@@ -118,40 +118,46 @@ public class ReserveController {
 	// 예약하기
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
 	public String reserve(HttpServletRequest request, int no) {
-		
-		// ReserveEntity entity = new ReserveEntity();
+
 		ReserveDto dto = new ReserveDto();	
 		
-		//int no = Integer.parseInt(request.getParameter("no"));
-		//String name = request.getParameter("name");
+		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		String adult = request.getParameter("adult"); // ���� ��
 		String child = request.getParameter("child"); // ���� ��
 		String startDate = request.getParameter("startDate"); // ���� ���� ��¥
 		String endDate = request.getParameter("endDate"); // ���� �� ��¥
-		//int totalcost = Integer.parseInt(request.getParameter("totalcost"));
+		int totalcost = Integer.parseInt(request.getParameter("totalCost"));
 		String bankName = request.getParameter("bankName");
-		//String bankBranchCde = request.getParameter("bankBranchCde"); // ������ȣ
-		//String bankNo = request.getParameter("bankNo");	// ���¹�ȣ	
-		
-		//int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+
 		
 		System.out.println(no);
 		
-		//dto.setName(name);		
+		dto.setName(name);		
 		dto.setPhone(phone);
 		dto.setAdult(adult);
 		dto.setChild(child);
 		dto.setStartDate(startDate);
 		dto.setEndDate(endDate);
-		//dto.setTotalcost(totalcost);
+		dto.setTotalcost(totalcost);
 		dto.setBankName(bankName);
-		//dto.setBankBranchCde(bankBranchCde);
-		//dto.setBankNo(bankNo);		
 		
-		// ������
-		//dto.setOptions("����");
-		dto.setName("kim");
+		if(bankName.equals("韓国")) {
+			dto.setBankBranchCde("1"); // 해당 은행의 지점번호
+			dto.setBankNo("123-456-7890"); // 해당 은행의 계좌번호	
+		}
+		else if(bankName.equals("日銀")) {
+			dto.setBankBranchCde("2"); // 해당 은행의 지점번호
+			dto.setBankNo("234-567-8901"); // 해당 은행의 계좌번호
+			
+		}
+		else if(bankName.equals("三菱")) {
+			dto.setBankBranchCde("3"); // 해당 은행의 지점번호
+			dto.setBankNo("110-365-123456"); // 해당 은행의 계좌번호	
+			
+		}
+		
+
 		dto.setPaymentFlg("0");
 		dto.setCancelFlg("0");
 		dto.setDeleteFlg("0"); 
@@ -168,6 +174,20 @@ public class ReserveController {
 		
 		
 	}		
+	
+	
+	// 예약 확인 페이지 들어가기
+	@RequestMapping(value = "/admin/reserveList", method = RequestMethod.GET) // �ش� ���� Ÿ�� ����
+	public String inReserveList(Model model, HttpServletRequest request) {
+		
+		List<ReserveEntity> list = reserveService.selectAll();
+		
+		model.addAttribute("list", list);
+			
+		return "admin/reserveList";		
+		
+	}
+	
 
 	
 	// 예약 가능한 방 리스트 검색(취소)

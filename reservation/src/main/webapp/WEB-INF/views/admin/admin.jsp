@@ -45,6 +45,9 @@
 		<div class="form-group">
 			<button	onclick = "location.href='/admin/consultationList' "class="btn btn-primary">相談</button>
 		</div>
+		<div class="form-group">
+			<button	onclick = "location.href='/admin/reserveList' "class="btn btn-primary">予約確認</button>
+		</div>
 		
 	</div>	
 	
