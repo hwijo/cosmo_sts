@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.reservation.dto.NoticeDto;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -56,11 +58,18 @@ public class NoticeEntity {
 	private String passwd;
 	
 	@Builder
-	public NoticeEntity(String title, String contents, int buildCd) {
+	public NoticeEntity(int no, String title, String contents, String deleteFlg, 
+			Date createdAt, Date updatedAt, int buildCd, String lockFlg, String passwd) {
 	        
+		    this.no = no;
 	        this.title = title;
 	        this.contents = contents;
+	        this.deleteFlg = deleteFlg;
+	        this.createdAt = createdAt;
+	        this.updatedAt = updatedAt;
 	        this.buildCd = buildCd;
+	        this.lockFlg = lockFlg;
+	        this.passwd = passwd;     
  
 	        
 	    }

@@ -18,7 +18,7 @@ public interface ConsultationRepository extends JpaRepository<ConsultationEntity
 	
 	public ConsultationEntity findByGrno(int grno);
 	
-	public ConsultationEntity findByNo(int no);
+	public ConsultationEntity findByNo(int id);
 	
 	//public ConsultationEntity findById((long)dto.getG));
 /*	

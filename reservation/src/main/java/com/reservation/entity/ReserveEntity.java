@@ -81,10 +81,11 @@ public class ReserveEntity {
 	private int roomNum;
 
 	@Builder
-	public ReserveEntity(String name, String phone, String adult, String child, String startDate, String endDate, String options, 
+	public ReserveEntity(int no, String name, String phone, String adult, String child, String startDate, String endDate, String options, 
 			String paymentFlg, int totalcost, String cancelFlg, String bankName, String bankBranchCde, String bankNo,
 			String deleteFlg, int buildCd, int roomInfo_No, RoomInfoEntity roomInfoEntity, int roomNum) {
 	        
+		    this.no = no;
 	        this.name = name;
 	        this.phone = phone;
 	        this.adult = adult;

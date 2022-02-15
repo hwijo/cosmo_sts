@@ -26,7 +26,7 @@
 
 <div class="work-area">
     <div class="container" style="padding : 100px;"align="center">
-	    <h2>Admin</h2>
+	    <h2>ADMIN</h2>
 	</div>	
 
     <div class="container">

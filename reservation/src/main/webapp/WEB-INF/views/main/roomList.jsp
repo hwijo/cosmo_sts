@@ -38,7 +38,8 @@
 	          							<img src="/resources/roomimages/${room.images}" width="200px" height="200px"/>
 	          						    </a>
 	          						<li>	          						    
-	          						    <p>${room.roomTitle}</p>
+	          						    <p style="color:${room.colorCd}">${room.roomTitle}</p>
+	          						    
 	          						</li>           						
 	          						<li>
 	          						    <p>${room.explnation}</p>

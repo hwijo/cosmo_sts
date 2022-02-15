@@ -37,6 +37,7 @@ import com.google.gson.JsonObject;
 import com.reservation.dto.CalendarDto;
 import com.reservation.dto.ReserveDto;
 import com.reservation.dto.RoomInfoDto;
+import com.reservation.entity.NoticeEntity;
 import com.reservation.entity.ReserveEntity;
 import com.reservation.entity.RoomInfoEntity;
 import com.reservation.repository.ReserveRepository;
@@ -188,6 +189,27 @@ public class ReserveController {
 		
 	}
 	
+	// 예약 확인 리스트 들어가기 
+	@RequestMapping(value = "/admin/checkReserve", method = RequestMethod.GET)
+	public String inCheckReserve(ReserveDto dto, Model model, HttpServletRequest request) {
+		
+		ReserveDto reserveDto = reserveService.updateReserve(dto);
+		
+		System.out.println("가져온 dto : " + reserveDto);
+		model.addAttribute("dto", reserveDto);
+		
+		return "admin/checkReserve";		
+		
+	}	
+	
+	// 예약 확인
+	@RequestMapping(value = "/admin/checkReserve", method = RequestMethod.POST) 
+	public String checkReserve(ReserveDto dto, Model model, HttpServletRequest request) {
+		
+			
+		return "redirect:/admin/reserveList";		
+		
+	}
 
 	
 	// 예약 가능한 방 리스트 검색(취소)

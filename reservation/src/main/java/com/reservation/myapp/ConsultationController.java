@@ -1,8 +1,7 @@
 package com.reservation.myapp;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.reservation.dto.ConsultationDto;
-import com.reservation.dto.NoticeDto;
 import com.reservation.entity.ConsultationEntity;
 import com.reservation.service.ConsultationService;
 
@@ -138,6 +136,8 @@ public class ConsultationController {
 		return "redirect:/admin/consultationList";	
 		
 	}
+	
+	
 	
 
 	

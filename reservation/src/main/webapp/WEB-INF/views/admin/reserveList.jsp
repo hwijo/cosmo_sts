@@ -21,13 +21,13 @@
 		<!-- 상담 -->
     <div style="padding : 100px;">
 	   　　<div class="container" style="padding : 50px;" align="center">
-	        <h2>예약확인</h2>
+	        <h2>予約確認</h2>
 	    </div>
 		<table class="table table-striped table-hover table-bordered">
 			<tr class="table-info text-center">
-				<td class="col-sm-3">예약된 방</td>
-				<td class="col-sm-3">예약된 날짜</td>
-				<td class="col-sm-1">예약한 날짜</td>
+				<td class="col-sm-3">予約された部屋</td>
+				<td class="col-sm-3">予約日</td>
+				<td class="col-sm-1">登録日</td>
 				<td class="col-sm-1"></td>
 			</tr>
 		
@@ -45,11 +45,12 @@
 			    <td class="text-center">${rewritedAt}</td>	
 			    
 			    
-			<!-- <form id="replyForm" role="form" name="reply" action="/admin/consulReply" method="post">    
-			    <input type="hidden" value="1" id="paymentFlg" name="paymentFlg">	
-			</form> -->
-			    			
-				<td class="text-right"><button onclick = "check(${listRe.paymentFlg})" class="btn btn-primary" style="float:right">입금확인</button></td>	
+            <c:if test="${empty listRe.paymentFlg}">
+				<td class="text-right"><button onclick = "location.href='/admin/checkReserve?no=${listRe.no}' "class="btn btn-primary" style="float:right">入金確認</button></td>	
+			</c:if>
+			<c:if test="${not empty listRe.paymentFlg}">
+				<td class="text-right">予約確認完了</td>	
+			</c:if>
 			</tr>	
 			
     	</c:forEach>
@@ -63,42 +64,8 @@
 
 <script>
 
-function check(no) {
-	console.log(no);
-	alert("예약확인 되었습니다.");
-		
-}
-
-$(function() {
-		$.ajax({
-			url : '/fullcalendar',
-			type: 'GET',
-			data: 'JSON',
-			success: function(datas) {
-				console.log(datas)
-				var result = [];
-				$.each(datas, function(index, data){
-					result.push({                                 
-		   		        start: data[0],
-		   		        end: data[1],
-		   		        title: data[2],
-		   		        backgroundColor : data[3]
-		   		        		   		        
-	   		        });					
-				});
-				console.log(result);
-				return result;
-			
-			},
-			error : function(request, status, error) {
-				console.log("ajax error");
-			}			
-
-		});	
-			
 
 
-});
 </script>
 </body>
 

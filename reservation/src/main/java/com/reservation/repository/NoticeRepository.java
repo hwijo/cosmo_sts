@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.reservation.entity.NoticeEntity;
 
 @Repository
-public interface NoticeRepository extends JpaRepository<NoticeEntity, Long> {
+public interface NoticeRepository extends JpaRepository<NoticeEntity, Integer> {
 	
 	NoticeEntity findByNo(int no);
 /*

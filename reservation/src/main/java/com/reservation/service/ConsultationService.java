@@ -1,6 +1,7 @@
 package com.reservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.reservation.dto.ConsultationDto;
 import com.reservation.entity.ConsultationEntity;
@@ -16,20 +17,7 @@ public interface ConsultationService {
 	// 상담 글 등록 한 후 등록한 글의 no를 가져와서 업데이트
 	public int insertReply(ConsultationDto consultationDto);
 
-	//public int selectByGrno(int grno);
-	
-	//public int selectConsultationListGrno(int grno);
-	
-	//public int selectMaxGrno();
-	
-	//public int selectMaxGrno(int grno);
-	
-	//public int selectConsultationGrno(int grno);
-	
 
-	//public ConsultationEntity updateReply(int grno);
-
-	//public Long savePost(ConsultationDto dto);
 	
 	default ConsultationEntity dtoToEntity(ConsultationDto dto) {
 		ConsultationEntity entity = ConsultationEntity.builder()
@@ -61,6 +49,8 @@ public interface ConsultationService {
 				.passwd(entity.getPasswd())
 				.lockFlg(entity.getLockFlg())
 				.deleteFlg(entity.getDeleteFlg())
+				.createdAt(entity.getCreatedAt())
+				.updatedAt(entity.getUpdatedAt())
 			.build();
 		return dto;
 	}

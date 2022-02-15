@@ -35,7 +35,9 @@ public class ConsultationServiceImpl implements ConsultationService {
 
 	@Override
 	public ConsultationEntity selectByNo(int no) {
+		//System.out.println("findByNo : " + consultationRepository.findByNo(no));
 		return consultationRepository.findByNo(no);
+		
 	}
 
     // 상담, 답글 등록
@@ -77,82 +79,6 @@ public class ConsultationServiceImpl implements ConsultationService {
 		return result;
 	}
 	
-	/*
-	 * @Override public int selectConsultationListGrno(int grno) {
-	 * List<ConsultationEntity> list =
-	 * consultationRepository.selectConsultationListGrno(grno); int maxGrgrod = 0;
-	 * for(int i=0;i<list.size();i++) { if(list.get(i).getGrgrod() ==
-	 * consultationRepository.selectMaxGrno(grno)) { maxGrgrod =
-	 * list.get(i).getGrgrod();
-	 * 
-	 * }
-	 * 
-	 * } return maxGrgrod;
-	 * 
-	 * 
-	 * }
-	 * 
-	 */
-	
-	
-
-/*	
-	@Override
-	public Long savePost(ConsultationDto dto) {
-		Optional<ConsultationEntity> onec = consultationRepository.findByGrno((long)dto.getGrno());
-		if(onec.isPresent()) {
-			ConsultationEntity c1 = onec.get(); // 부모
-			int grno = c1.getGrno();
-			int grgrod = c1.getGrgrod();
-			int depth = c1.getDepth();
-			
-			String result = consultationRepository.equalOrder(grno, grgrod, depth);
-			System.out.println("-------------------------------------------------1");
-			System.out.println(result);
-			System.out.println("-------------------------------------------------1");
-			
-			if(result == null) { // 
-				int xy = consultationRepository.resultOrder(grno);
-				System.out.println("-------------------------------------------------2");
-				System.out.println(xy);
-				System.out.println("-------------------------------------------------2");
-				dto.setGrno(grno);
-				dto.setGrgrod(grgrod);				
-			}
-			else {
-				System.out.println("-------------------------------------------------3");
-				System.out.println(result);
-				System.out.println("-------------------------------------------------3");
-			    int yz = Integer.parseInt(result);
-			    dto.setGrno(grno);
-			    dto.setGrgrod(yz);
-			    consultationRepository.updateOrder(grno, grgrod, yz);
-			}
-			//ConsultationEntity consultation = dto.toEntity();
-			ConsultationEntity consultation = convertDtotoEntity(dto);
-			consultationRepository.save(consultation);
-			
-			
-		}
-		
-	}
-	
-*/	
-	private ConsultationEntity convertDtotoEntity(ConsultationDto dto) {
-		//RoomInfoEntity roomInfo = new RoomInfoEntity(); 
-    	return ConsultationEntity.builder()
-    			.grno(dto.getGrno())
-				.grgrod(dto.getGrgrod())
-				.depth(dto.getDepth())
-				.title(dto.getTitle())
-				.contents(dto.getContents())
-				.name(dto.getName())
-				.passwd(dto.getPasswd())
-				.build();	
-        		
-    }
-
-
 
 
 

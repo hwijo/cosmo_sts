@@ -76,7 +76,7 @@ public class SliderimagesController {
 		
 		model.addAttribute("image", i);
 		
-		System.out.println("�̹��� ���� �Ϸ�");
+		//System.out.println("�̹��� ���� �Ϸ�");
 		
 		return "redirect:/";
 		

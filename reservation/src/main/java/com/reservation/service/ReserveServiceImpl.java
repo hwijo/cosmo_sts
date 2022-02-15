@@ -115,7 +115,8 @@ public class ReserveServiceImpl implements ReserveService {
 		return reserveDtoList;
 	}
 */	
-    
+
+/*
 	private ReserveDto convertEntityToDto(ReserveEntity reserve) {
 		RoomInfoEntity roomInfo = new RoomInfoEntity(); 
     	return ReserveDto.builder()
@@ -137,20 +138,26 @@ public class ReserveServiceImpl implements ReserveService {
 				.build();	
         		
     }
-
+*/
 
 	@Override
 	public ReserveDto updateReserve(ReserveDto dto) {
 		ReserveEntity entity = reserveRepository.findById(dto.getNo()).get();
 			
-		if(dto.getAdult() != null)
-			entity.setAdult(dto.getAdult());
-		if(dto.getDeleteFlg() != null)
-			entity.setDeleteFlg(dto.getDeleteFlg());
+		System.out.println("서비스 entity : " + entity);
+		//if(dto.getAdult() != null)
+		//	entity.setAdult(dto.getAdult());
+		//if(dto.getDeleteFlg() != null)
+		//	entity.setDeleteFlg(dto.getDeleteFlg());
+		//if(entity.getPaymentFlg() != null) {
+		//	entity.setPaymentFlg("1");
+		//	reserveRepository.save(entity);	
+		//}		
+		//reserveRepository.save(entity);
 		
-		reserveRepository.save(entity);
+		reserveRepository.updateFlg(entity.getNo()); // paymentFlg 변경
 		
-		return dtoToEntity(entity);
+		return entityToDto(entity);
 	}
 
 

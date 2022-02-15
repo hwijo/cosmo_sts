@@ -26,8 +26,30 @@ public interface ReserveService {
 	public ReserveDto updateReserve(ReserveDto dto);
 
 
-	default ReserveDto dtoToEntity(ReserveEntity reserve) {
+	default ReserveEntity dtoToEntity(ReserveDto dto) {
+		return ReserveEntity.builder()
+				.no(dto.getNo())
+				.name(dto.getName())
+				.phone(dto.getPhone())
+				.adult(dto.getAdult())
+				.child(dto.getChild())
+				.startDate(dto.getStartDate())
+				.endDate(dto.getEndDate())
+				.paymentFlg(dto.getPaymentFlg())
+				.totalcost(dto.getTotalcost())
+				.cancelFlg(dto.getCancelFlg())
+				.bankName(dto.getBankName())
+				.bankBranchCde(dto.getBankBranchCde())
+				.bankNo(dto.getBankNo())
+				.deleteFlg(dto.getDeleteFlg())
+				.roomNum(dto.getRoomNum())
+				.buildCd(dto.getBuildCd())
+				.build();	
+	}
+	
+	default ReserveDto entityToDto(ReserveEntity reserve) {
 		return ReserveDto.builder()
+				.no(reserve.getNo())
 				.name(reserve.getName())
 				.phone(reserve.getPhone())
 				.adult(reserve.getAdult())
@@ -46,23 +68,5 @@ public interface ReserveService {
 				.build();	
 	}
 	
-	default ReserveEntity entityToDTO(ReserveDto dto) {
-		return ReserveEntity.builder()
-				.name(dto.getName())
-				.phone(dto.getPhone())
-				.adult(dto.getAdult())
-				.child(dto.getChild())
-				.startDate(dto.getStartDate())
-				.endDate(dto.getEndDate())
-				.paymentFlg(dto.getPaymentFlg())
-				.totalcost(dto.getTotalcost())
-				.cancelFlg(dto.getCancelFlg())
-				.bankName(dto.getBankName())
-				.bankBranchCde(dto.getBankBranchCde())
-				.bankNo(dto.getBankNo())
-				.deleteFlg(dto.getDeleteFlg())
-				.roomNum(dto.getRoomNum())
-				.buildCd(dto.getBuildCd())
-				.build();	
-	}
+
 }

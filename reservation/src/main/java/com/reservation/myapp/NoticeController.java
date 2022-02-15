@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.reservation.dto.ConsultationDto;
 import com.reservation.dto.NoticeDto;
 import com.reservation.entity.ConsultationEntity;
 import com.reservation.entity.NoticeEntity;
@@ -125,10 +126,17 @@ public class NoticeController {
 
 	}
 
-	// 공지사항 등록/수정
+	// 공지사항 등록
 	@RequestMapping(value = "/admin/insertNotice", method = RequestMethod.POST)
-	public String insertNotice(Model model, HttpServletRequest request) {
-
+	public String insertNotice(NoticeDto dto, Model model, HttpServletRequest request) {
+		
+		System.out.println("notice : " + dto.toString());
+		
+		noticeService.updateNotice(dto);
+		
+		return "redirect:/";
+		
+/*		
 		NoticeDto dto = new NoticeDto();
 		//NoticeEntity e = new NoticeEntity();
 
@@ -149,15 +157,22 @@ public class NoticeController {
 		System.out.println("notice 저장 코드 시작");
 		noticeService.insertNotice(dto);
 		System.out.println("notice 저장 코드 끝");
-
-		return "redirect:/";
+*/
+		
 
 	}
 	
 	// 공지사항 등록/수정
 	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.POST)
-	public String updateNotice(Model model, HttpServletRequest request) {
+	public String updateNotice(NoticeDto dto, Model model, HttpServletRequest request) {
 
+		System.out.println("notice : " + dto.toString());
+		
+		noticeService.updateNotice(dto);
+		
+		return "redirect:/";
+		
+/*	
 		NoticeDto dto = new NoticeDto();
 		//NoticeEntity e = new NoticeEntity();
 
@@ -178,9 +193,9 @@ public class NoticeController {
 		System.out.println("notice 저장 코드 시작");
 		noticeService.insertNotice(dto);
 		System.out.println("notice 저장 코드 끝");
-
+    
 		return "redirect:/";
-
+*/
 	}
 	
 }
